@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GettingReal.Data.Repositories
+namespace GettingReal._3._Models.Video;
+public class Devotion
 {
-    internal class DataAccessClasses
-    {
-    }
+
+    public Devotion() { }
 }
