@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 using GettingReal._3._Models.Metadata;
 
 namespace GettingReal.Models.Audio;
-internal class Foredrag : AudioMetadata
+public class Lecture : AudioMetadata
 {
+
+
+    public Lecture() { }
     public override Dictionary<ITag, string> Tags { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 }

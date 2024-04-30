@@ -11,13 +11,11 @@ public class BibleStudy : AudioMetadata
     // Esajas' Bog 1,18-31
     // Johannes' Åbenbaring, indl. 3
 
-    public string BibleReference { get; set; }
     public Guid BibleReferenceGuid { get; set; }
     public string BookTitle { get; set; }
     public int Chapter { get; set; }
-    public int Section {  get; set; }
-    public int minSection { get; set; }
-    public int maxSection { get; set; }
+    public int minVerse { get; set; }
+    public int maxVerse { get; set; }
 
     
     // producer -> Tags["artist"]

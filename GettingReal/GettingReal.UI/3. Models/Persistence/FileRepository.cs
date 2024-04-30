@@ -7,17 +7,17 @@ using GettingReal._3._Models.Persistence;
 
 namespace GettingReal.Data.Repositories
 {
-    public class FileRepository : Repository
+    public class FileRepository : IRepository
     {
         public FileRepository()
         {
 
         }
 
-        public override void Create() => throw new NotImplementedException();
-        public override void Read() => throw new NotImplementedException();
-        public override void ReadAll() => throw new NotImplementedException();
-        public override void Update() => throw new NotImplementedException();
-        public override void Delete() => throw new NotImplementedException();
+        public void Create() => throw new NotImplementedException();
+        public void Read() => throw new NotImplementedException();
+        public void ReadAll() => throw new NotImplementedException();
+        public void Update() => throw new NotImplementedException();
+        public void Delete() => throw new NotImplementedException();
     }
 }
