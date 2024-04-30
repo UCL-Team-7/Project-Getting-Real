@@ -7,4 +7,6 @@ using System.Threading.Tasks;
 namespace GettingReal._3._Models.Video;
 public class Devotion
 {
+
+    public Devotion() { }
 }

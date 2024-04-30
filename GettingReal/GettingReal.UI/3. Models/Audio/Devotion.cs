@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 using GettingReal._3._Models.Metadata;
 
 namespace GettingReal.Models.Audio;
-internal class Andagt : AudioMetadata
+internal class Devotion : AudioMetadata
 {
+    public string Location { get; set; }
+    public string organization { get; set; }
+
+
     public override Dictionary<ITag, string> Tags { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 }

@@ -8,5 +8,9 @@ using GettingReal._3._Models.Metadata;
 namespace GettingReal.Models.Audio;
 public class Music : AudioMetadata
 {
+    public MusicCustomCategory EventCategory { get; set; }
+
+
+
     public override Dictionary<ITag, string> Tags { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 }
