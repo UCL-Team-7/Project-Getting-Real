@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GettingReal._3._Models.Audio;
 
-public enum BookTitles
+public enum BibleBookTitles
 {
     Genesis,
     Psalms,
@@ -35,4 +35,13 @@ public enum BookTitles
     Epistles_of_Peter,
     First_Epistle_of_John,
     Revelation_of_John
+}
+
+public enum MusicCustomCategory
+{
+    Christmas,
+    Easter,
+    Wedding,
+    Funeral,
+    Confirmation
 }
