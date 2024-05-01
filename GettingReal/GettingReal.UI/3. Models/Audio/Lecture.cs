@@ -8,6 +8,14 @@ using GettingReal._3._Models.Metadata;
 namespace GettingReal.Models.Audio;
 public class Lecture : AudioMetadata
 {
+    // Teacher -> Tags.Artist?
+
+
+    public DateTime Date { get; set; }
+    public string Location { get; set; }
+    public string Organization { get; set; }
+    public override string FilePath { get; set; }
+
 
 
     public Lecture() { }

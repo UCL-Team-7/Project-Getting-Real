@@ -16,8 +16,9 @@ public class BibleStudy : AudioMetadata
     public int Chapter { get; set; }
     public int minVerse { get; set; }
     public int maxVerse { get; set; }
+    public override string FilePath { get; set; }
 
-    
+
     // producer -> Tags["artist"]
 
 

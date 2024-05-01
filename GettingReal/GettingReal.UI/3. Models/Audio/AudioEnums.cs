@@ -37,7 +37,7 @@ public enum BibleBookTitles
     Revelation_of_John
 }
 
-public enum MusicCustomCategory
+public enum EventCategory
 {
     Christmas,
     Easter,
