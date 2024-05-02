@@ -8,8 +8,13 @@ using GettingReal._3._Models.Metadata;
 namespace GettingReal.Models.Audio;
 public class Sermon : AudioMetadata
 {
-    public string church {  get; set; }
-    public string country { get; set; }
+    public string Church {  get; set; }
+    public string Country { get; set; }
+    public override string FilePath { get; set; }
+
+    // Priest -> Tags.Artist/Tags.Author
+    // Year -> Tags.Year
+    // Title -> Tags.Title
 
     public Sermon() { }
 

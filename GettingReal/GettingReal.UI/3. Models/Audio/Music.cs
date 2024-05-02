@@ -9,7 +9,9 @@ using GettingReal._3._Models.Metadata;
 namespace GettingReal.Models.Audio;
 public class Music : AudioMetadata
 {
-    public MusicCustomCategory EventCategory { get; set; }
+    public EventCategory EventCategory { get; set; }
+    public bool IsKoda { get; set; }
+    public override string FilePath { get; set; }
 
 
     public Music() { }
