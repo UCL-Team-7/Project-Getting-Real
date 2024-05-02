@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GettingReal._3._Models.Audio;
+namespace GettingReal.Domain.Models.Audio;
 
 public enum BibleBookTitles
 {

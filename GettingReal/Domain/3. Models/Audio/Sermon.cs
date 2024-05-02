@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GettingReal._3._Models.Metadata;
+using System.Xml.Linq;
+using GettingReal.Domain.Models.Metadata;
 
-namespace GettingReal.Models.Audio;
+namespace GettingReal.Domain.Models.Audio;
 public class Sermon : AudioMetadata
 {
     public string Church {  get; set; }

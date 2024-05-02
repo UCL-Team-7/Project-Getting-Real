@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GettingReal._3._Models.Metadata;
+namespace GettingReal.Domain.Models.Metadata;
 public interface ITag
 {
     string Title { get; set; }
