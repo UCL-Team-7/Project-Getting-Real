@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace GettingReal.UI.Views;
+namespace UI;
 /// <summary>
 /// Interaction logic for App.xaml
 /// </summary>
