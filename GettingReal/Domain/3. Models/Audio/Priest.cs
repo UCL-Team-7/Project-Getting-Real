@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GettingReal.Models.Audio;
 
-namespace GettingReal._3._Models.Audio;
+
+
+namespace GettingReal.Domain.Models.Audio;
 public class Priest
 {
     public string Name { get; set; }

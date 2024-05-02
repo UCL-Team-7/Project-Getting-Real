@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GettingReal.UI.ViewModels;
-internal class UILogicClasses
+namespace GettingReal.Domai.Models.Video;
+public class Devotion
 {
+
+    public Devotion() { }
 }

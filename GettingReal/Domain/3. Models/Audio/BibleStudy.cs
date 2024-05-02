@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GettingReal._3._Models.Metadata;
+using GettingReal.Domain.Models.Metadata;
 
-namespace GettingReal.Models.Audio;
+namespace GettingReal.Domain.Models.Audio;
 public class BibleStudy : AudioMetadata
 {
     // Esajas' Bog 1,18-31

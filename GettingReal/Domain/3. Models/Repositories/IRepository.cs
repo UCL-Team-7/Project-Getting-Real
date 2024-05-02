@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GettingReal._3._Models.Persistence;
+namespace GettingReal.Domain.Models.Repositories;
 public interface IRepository
 {
     public void Create();
