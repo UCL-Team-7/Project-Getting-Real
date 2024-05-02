@@ -9,8 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-
-namespace GettingReal.UI.Views;
+namespace UI;
 /// <summary>
 /// Interaction logic for MainWindow.xaml
 /// </summary>
