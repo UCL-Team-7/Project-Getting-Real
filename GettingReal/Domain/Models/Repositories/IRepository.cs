@@ -8,7 +8,7 @@ namespace GettingReal.Domain.Models.Repositories;
 public interface IRepository
 {
     public void Create();
-    public void Read();
+    public void Read(string filePath);
     public void ReadAll();
     public void Update();
     public void Delete();
