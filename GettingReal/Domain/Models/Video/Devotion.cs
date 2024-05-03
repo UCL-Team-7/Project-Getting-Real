@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GettingReal.Domai.Models.Video;
+namespace GettingReal.Domain.Models.Video;
 public class Devotion
 {
 
