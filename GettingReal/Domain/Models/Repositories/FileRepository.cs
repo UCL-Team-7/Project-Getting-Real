@@ -14,10 +14,8 @@ public class FileRepository : IRepository
 
     private Music _music;
 
-
     public FileRepository()
     {
-
     }
 
     // create custom tag
@@ -50,10 +48,10 @@ public class FileRepository : IRepository
     public void ReadAll()
     {
         // Read all files in the directory
-        var Files = Directory.GetFiles("C:\\temp\\MP3"); //_music.FilePath
+        string[] Files = Directory.GetFiles("C:\\temp\\MP3"); //_music.FilePath
 
         // Loop over each file
-        foreach (var filePath in Files)
+        foreach (string filePath in Files)
         {
             // Call the Read method for each file
             Read(filePath);
