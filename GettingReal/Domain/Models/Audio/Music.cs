@@ -12,7 +12,13 @@ public class Music : AudioMetadata
 
 
     public List<Music> music = new List<Music>();
-    public string Title { get; set; }
+    //public string Title { get; set; }
+    public string Title
+    {
+        get { return Metadata["Title"]; }
+    }
+
+    //Metadata.GetValueOrDefault("Title")
 
     public Dictionary<string, string> Metadata { get; set; }
 
