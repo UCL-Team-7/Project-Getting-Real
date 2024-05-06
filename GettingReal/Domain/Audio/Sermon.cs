@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using GettingReal.Domain.Models.Metadata;
+using Models.Metadata;
 
-namespace GettingReal.Domain.Models.Audio;
+namespace Models.Audio;
 public class Sermon : AudioMetadata
 {
-    public string Church {  get; set; }
+    public string Church { get; set; }
     public string Country { get; set; }
     public override string FilePath { get; set; }
 

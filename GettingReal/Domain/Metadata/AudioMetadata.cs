@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GettingReal.Domain.Models.Metadata;
+namespace Models.Metadata;
 public abstract class AudioMetadata
 {
     public abstract string FilePath { get; set; }

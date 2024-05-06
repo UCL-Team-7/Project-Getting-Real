@@ -3,21 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GettingReal.Domain.Models.Metadata;
+using Models.Metadata;
 
-namespace GettingReal.Domain.Models.Audio;
-public class Lecture : AudioMetadata
+namespace Models.Audio;
+internal class Devotion : AudioMetadata
 {
-    // Teacher -> Tags.Artist?
-
-
-    public DateTime Date { get; set; }
-    public string Location { get; set; }
-    public string Organization { get; set; }
+    public string Church { get; set; }
+    public EventCategory EventCategory { get; set; }
     public override string FilePath { get; set; }
 
 
-
-    public Lecture() { }
+    public Devotion() { }
     public override Dictionary<ITag, string> Tags { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 }

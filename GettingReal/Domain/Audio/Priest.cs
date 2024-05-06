@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 
 
-namespace GettingReal.Domain.Models.Audio;
+namespace Models.Audio;
 public class Priest
 {
     public string Name { get; set; }

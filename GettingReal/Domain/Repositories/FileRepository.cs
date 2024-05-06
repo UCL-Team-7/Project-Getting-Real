@@ -4,10 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GettingReal.Domain.Models.Audio;
+using Models.Audio;
 
-
-namespace GettingReal.Domain.Models.Repositories;
+namespace Models.Repositories;
 
 public class FileRepository : IRepository
 {
