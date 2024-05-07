@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Models.Repositories;
 public interface IRepository
 {
-    public void Create();
+    public void Create(string filePath, string tagKey, string tagValue);
     public void Read(string filePath);
     public void ReadAll();
     public void Update();
