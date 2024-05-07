@@ -5,12 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Models.Audio;
-
-public enum EventCategory
+internal class BibleBooks
 {
-    Christmas,
-    Easter,
-    Wedding,
-    Funeral,
-    Confirmation
+    public string Title { get; set; }
+
+    public BibleBooks() { }
 }
