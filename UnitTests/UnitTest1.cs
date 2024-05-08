@@ -1,9 +1,8 @@
 ﻿using Models.Audio;
 using Models.Repositories;
-using Models.Video;
 using TagLib;
 
-namespace UnitTest;
+namespace UnitTests;
 
 [TestClass]
 public class UnitTest1
