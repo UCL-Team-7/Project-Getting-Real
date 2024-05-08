@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Models.Audio;
-internal class BibleBooks
+public class BibleBooks
 {
-    public string Title { get; set; }
+    public string Title { get; }
 
     public BibleBooks() { }
 }
