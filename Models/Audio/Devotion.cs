@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Models.Metadata;
 
 namespace Models.Audio;
-internal class Devotion : AudioMetadata
+public class Devotion : AudioMetadata
 {
     public string Church { get; set; }
     public EventCategory EventCategory { get; set; }
