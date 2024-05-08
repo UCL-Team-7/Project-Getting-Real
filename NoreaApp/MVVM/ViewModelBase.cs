@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ViewModels.MVVM
+namespace NoreaApp.MVVM
 {
     internal class ViewModelBase : INotifyPropertyChanged
     {

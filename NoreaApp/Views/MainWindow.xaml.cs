@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using NoreaApp.ViewModels;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -19,6 +20,8 @@ namespace Views
         public MainWindow()
         {
             InitializeComponent();
+            MainWindowViewModel mvm = new MainWindowViewModel();
+            DataContext = mvm;
         }
     }
 }
