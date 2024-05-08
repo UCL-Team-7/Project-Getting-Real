@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 
 
-namespace Models.Audio;
+namespace NoreaApp.Models.Audio;
 public class Priest
 {
     public string Name { get; set; }

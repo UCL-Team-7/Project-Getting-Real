@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace ViewModels.MVVM
+namespace NoreaApp.MVVM
 {
     internal class RelayCommand : ICommand
     {
