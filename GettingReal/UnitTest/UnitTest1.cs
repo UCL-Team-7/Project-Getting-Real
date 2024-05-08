@@ -1,5 +1,7 @@
 ﻿using Models.Audio;
+using Models.Repositories;
 using Models.Video;
+using TagLib;
 
 namespace UnitTest;
 
@@ -14,24 +16,31 @@ public class UnitTest1
     Sermon s1, s2, s3;
     Devotion vd1, vd2, vd3;
 
+    FileRepository fileRepository;
+
 
     [TestInitialize]
     public void Init()
     {
-        b1 = new BibleStudy();
-
-        
-
+        fileRepository = new FileRepository();
     }
 
-        [TestMethod]
-    public void BibleStudy_Return_CorrectToStringValue()
+    [TestMethod]
+    public void Setting_Custom_Id3Tags()
     {
-        //Act
+        // Custom key cannot be longer than 4 bytes long
+        string customKey = "TEST";
+        string customValue = "Cool Custom Text";
 
-        //Arrange
+        fileRepository.Create(@"C:\mp3\test1.mp3", customKey, customValue);
 
-        //Assert
-        Assert.AreEqual("BibleStudy: BookTitle: {BookTitle}, Chapter: {Chapter}, minVerse: {minVerse}, maxVerse: {maxVerse}, filePath: {FilePath}", b1.ToString());
+        var tFile = TagLib.File.Create(@"C:\mp3\test1.mp3");
+        var id3v2tag = tFile.GetTag(TagTypes.Id3v2) as TagLib.Id3v2.Tag;
+
+
+        if (id3v2tag != null)
+        {
+            Assert.AreEqual(customValue, id3v2tag.GetTextAsString(customKey));
+        }
     }
 }

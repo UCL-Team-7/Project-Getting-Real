@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Models.Audio;
+using TagLib;
 
 namespace Models.Repositories;
 
@@ -18,7 +19,18 @@ public class FileRepository : IRepository
     }
 
     // create custom tag
-    public void Create() => throw new NotImplementedException();
+    // todo: Lav flere options end kun id3tags
+    public void Create(string filePath, string tagKey, string tagValue)
+    {
+        var tfile = TagLib.File.Create(filePath);
+
+        if (tfile != null)
+        {
+            var id3tag = (TagLib.Id3v2.Tag)tfile.GetTag(TagTypes.Id3v2);
+            id3tag.SetTextFrame(tagKey, tagValue);
+            tfile.Save();
+        }
+    }
 
 
     // todo: Lav en collection til at gemme alle vores klasser
@@ -30,7 +42,6 @@ public class FileRepository : IRepository
         var tFile = TagLib.File.Create(filePath);
 
         metadataCollection.Add("Title", tFile.Tag.Title);
-
         metadataCollection.Add("Artist", tFile.Tag.FirstPerformer);
         metadataCollection.Add("Album", tFile.Tag.Album);
         metadataCollection.Add("Year", tFile.Tag.Year.ToString());
