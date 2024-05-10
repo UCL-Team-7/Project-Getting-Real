@@ -13,5 +13,5 @@ internal interface IMetadataRepository
     public void Read();
     public void ReadAll();
     public void Update();
-    public void Delete(MediaFile mediaFile, string tagKey);
+    public void DeleteCustomTag(MediaFile mediaFile);
 }

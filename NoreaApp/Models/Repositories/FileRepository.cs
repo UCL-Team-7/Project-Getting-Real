@@ -3,18 +3,12 @@ using System.IO;
 using System.Security.Cryptography;
 using NoreaApp.Models.Audio;
 using TagLib;
+using TagLib.Id3v2;
 
 namespace NoreaApp.Models.Repositories;
 
 public class FileRepository : IRepository
 {
-
-    // create custom tag
-    // todo: Lav flere options end kun id3tags
-    public void Create()
-    {
-        throw new NotImplementedException();
-    }
 
     public ObservableCollection<MediaFile> ReadAll(string[] filePaths)
     {
@@ -31,9 +25,14 @@ public class FileRepository : IRepository
     }
 
     public MediaFile Read(string filePath)
-    {        
+    {
         var file = TagLib.File.Create(filePath);
         var id3tag = file.GetTag(TagTypes.Id3v2) as TagLib.Id3v2.Tag;
+
+        // Find the custom frame "TXXX" with description "TNRT"
+        var customFrame = id3tag.GetFrames<UserTextInformationFrame>()
+                                 .FirstOrDefault(f => f.FrameId == "TXXX" && f.Description == "TNRT");
+        string noreaType = customFrame?.Text.FirstOrDefault() ?? string.Empty;
 
         MediaFile mediaFile = new MediaFile()
         {
@@ -47,12 +46,11 @@ public class FileRepository : IRepository
             Comment = file.Tag.Comment,
             Directory = filePath,
             Composer = file.Tag.FirstComposer,
-            NoreaType = id3tag.GetTextAsString("NRTP")
+            NoreaType = noreaType
         };
-    
+
         return mediaFile;
     }
-
 
     // update existing tags metadata
     public void Update(MediaFile mediaFile)
@@ -73,15 +71,6 @@ public class FileRepository : IRepository
         file.Save();
     }
 
-    // delete custom tag (field)
-    public void Delete(MediaFile mediaFile, string tagKey)
-    {
-        var tfile = TagLib.File.Create(mediaFile.Directory);
-
-        if (tfile != null)
-        {
-            var id3tag = (TagLib.Id3v2.Tag)tfile.GetTag(TagTypes.Id3v2);
-            id3tag.SetTextFrame(tagKey, "");
-        }
-    }
+    public void Create() => throw new NotImplementedException();
+    public void Delete() => throw new NotImplementedException();
 }

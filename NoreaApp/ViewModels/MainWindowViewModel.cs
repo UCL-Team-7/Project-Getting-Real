@@ -22,6 +22,10 @@ namespace NoreaApp.ViewModels
         public RelayCommand UpdateCommand => new RelayCommand(execute => UpdateMediaFile(), canExecute => SelectedItem != null);
         public RelayCommand CreateCommand => new RelayCommand(execute => CreateCustomTag(), canExecute => SelectedItem != null);
 
+        public RelayCommand DeleteCustomTagCommand => new RelayCommand(execute => DeleteCustomTag(), canExecute => SelectedItem != null);
+        
+
+
         public MainWindowViewModel()
         {
             
@@ -60,6 +64,27 @@ namespace NoreaApp.ViewModels
             Console.WriteLine("ran custom tag");
 
         }
+
+        private void DeleteCustomTag()
+        {
+            MediaFile mediaFile = SelectedItem;
+
+            int index = MediaFiles.IndexOf(mediaFile);
+
+            _metadataRepository.DeleteCustomTag(mediaFile);
+
+
+            MediaFile updateMediaFile = _fileRepository.Read(mediaFile.Directory);
+
+            MediaFiles.RemoveAt(index);
+
+            MediaFiles.Insert(index, updateMediaFile);
+
+
+            Console.WriteLine("ran custom tag");
+
+        }
+    
 
 
 

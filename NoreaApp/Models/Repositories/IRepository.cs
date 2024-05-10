@@ -9,5 +9,5 @@ public interface IRepository
     public MediaFile Read(string filePath);
     public ObservableCollection<MediaFile> ReadAll(string[] filePaths);
     public void Update(MediaFile mediaFile);
-    public void Delete(MediaFile mediaFile, string tagKey);
+    public void Delete();
 }
