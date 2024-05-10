@@ -18,6 +18,7 @@ namespace NoreaApp.Models.Audio
         public string? Comment { get; set; }
         public string? Directory { get; set; }
         public string? Composer { get; set; }
+        public string? NoreaType { get; set; }
 
     }
 }

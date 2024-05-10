@@ -11,7 +11,8 @@ namespace NoreaApp.ViewModels
     {
         public ObservableCollection<MediaFile> MediaFiles { get; set; }
 
-        private IRepository _repository = new FileRepository();
+        private IRepository _fileRepository = new FileRepository();
+        private IMetadataRepository _metadataRepository = new MetadataRepository();
 
 
         //public RelayCommand AddCommand => new RelayCommand(execute => AddMediaFile(), canExecute => { return true; });
@@ -19,6 +20,7 @@ namespace NoreaApp.ViewModels
         public RelayCommand SaveCommand => new RelayCommand(execute => Save(), canExecute => CanSave());
         public RelayCommand DisplayCommand => new RelayCommand(execute => Display(), canExecute => { return true; });
         public RelayCommand UpdateCommand => new RelayCommand(execute => UpdateMediaFile(), canExecute => SelectedItem != null);
+        public RelayCommand CreateCommand => new RelayCommand(execute => CreateCustomTag(), canExecute => SelectedItem != null);
 
         public MainWindowViewModel()
         {
@@ -38,6 +40,29 @@ namespace NoreaApp.ViewModels
             }
         }
 
+
+        private void CreateCustomTag()
+        {
+            MediaFile mediaFile = SelectedItem;
+
+            int index = MediaFiles.IndexOf(mediaFile);
+
+            _metadataRepository.Create(mediaFile);
+
+
+            MediaFile updateMediaFile = _fileRepository.Read(mediaFile.Directory);
+
+            MediaFiles.RemoveAt(index);
+
+            MediaFiles.Insert(index, updateMediaFile);
+
+
+            Console.WriteLine("ran custom tag");
+
+        }
+
+
+
         private void AddMediaFile()
         {
             throw new NotImplementedException();
@@ -55,7 +80,7 @@ namespace NoreaApp.ViewModels
         {
             MediaFile mediaFile = SelectedItem;
 
-            _repository.Update(mediaFile);
+            _fileRepository.Update(mediaFile);
         }
 
         public void Display()
@@ -70,7 +95,7 @@ namespace NoreaApp.ViewModels
             {
                 string[] chosenPaths = dialog.FileNames;
 
-                var tempMediaFiles = _repository.ReadAll(chosenPaths);
+                var tempMediaFiles = _fileRepository.ReadAll(chosenPaths);
 
                 MediaFiles.Clear();
 

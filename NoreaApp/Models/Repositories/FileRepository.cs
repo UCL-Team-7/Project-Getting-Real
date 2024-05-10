@@ -11,16 +11,9 @@ public class FileRepository : IRepository
 
     // create custom tag
     // todo: Lav flere options end kun id3tags
-    public void Create(string filePath, string tagKey, string tagValue)
+    public void Create()
     {
-        var tfile = TagLib.File.Create(filePath);
-
-        if (tfile != null)
-        {
-            var id3tag = (TagLib.Id3v2.Tag)tfile.GetTag(TagTypes.Id3v2);
-            id3tag.SetTextFrame(tagKey, tagValue);
-            tfile.Save();
-        }
+        throw new NotImplementedException();
     }
 
     public ObservableCollection<MediaFile> ReadAll(string[] filePaths)
@@ -40,6 +33,7 @@ public class FileRepository : IRepository
     public MediaFile Read(string filePath)
     {        
         var file = TagLib.File.Create(filePath);
+        var id3tag = file.GetTag(TagTypes.Id3v2) as TagLib.Id3v2.Tag;
 
         MediaFile mediaFile = new MediaFile()
         {
@@ -53,6 +47,7 @@ public class FileRepository : IRepository
             Comment = file.Tag.Comment,
             Directory = filePath,
             Composer = file.Tag.FirstComposer,
+            NoreaType = id3tag.GetTextAsString("NRTP")
         };
     
         return mediaFile;
@@ -60,7 +55,7 @@ public class FileRepository : IRepository
 
 
     // update existing tags metadata
-    public MediaFile Update(MediaFile mediaFile)
+    public void Update(MediaFile mediaFile)
     {
         var file = TagLib.File.Create(mediaFile.Directory);
 
@@ -76,8 +71,6 @@ public class FileRepository : IRepository
         file.Tag.AlbumArtists = [ mediaFile.AlbumArtist ];
 
         file.Save();
-
-        return mediaFile;
     }
 
     // delete custom tag (field)
