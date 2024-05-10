@@ -122,6 +122,7 @@
         <Button Grid.Row="2"
                 Grid.Column="4"
                 Content="Gem"
+                Command="{Binding UpdateCommand}"
                 Margin="20,10" />
 
         <StackPanel Grid.Column="2">

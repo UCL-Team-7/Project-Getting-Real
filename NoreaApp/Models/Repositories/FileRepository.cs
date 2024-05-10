@@ -9,9 +9,6 @@ namespace NoreaApp.Models.Repositories;
 public class FileRepository : IRepository
 {
 
-    //private Music _music;
-
-
     // create custom tag
     // todo: Lav flere options end kun id3tags
     public void Create(string filePath, string tagKey, string tagValue)
@@ -63,7 +60,7 @@ public class FileRepository : IRepository
 
 
     // update existing tags metadata
-    public void Update(MediaFile mediaFile)
+    public MediaFile Update(MediaFile mediaFile)
     {
         var file = TagLib.File.Create(mediaFile.Directory);
 
@@ -79,6 +76,8 @@ public class FileRepository : IRepository
         file.Tag.AlbumArtists = [ mediaFile.AlbumArtist ];
 
         file.Save();
+
+        return mediaFile;
     }
 
     // delete custom tag (field)

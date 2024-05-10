@@ -11,18 +11,18 @@ namespace NoreaApp.ViewModels
     {
         public ObservableCollection<MediaFile> MediaFiles { get; set; }
 
-        private FileRepository _fileRepository;
+        private IRepository _repository = new FileRepository();
 
 
         //public RelayCommand AddCommand => new RelayCommand(execute => AddMediaFile(), canExecute => { return true; });
         public RelayCommand DeleteCommand => new RelayCommand(execute => DeleteMediaFile(), canExecute => SelectedItem != null);
         public RelayCommand SaveCommand => new RelayCommand(execute => Save(), canExecute => CanSave());
         public RelayCommand DisplayCommand => new RelayCommand(execute => Display(), canExecute => { return true; });
-
+        public RelayCommand UpdateCommand => new RelayCommand(execute => UpdateMediaFile(), canExecute => SelectedItem != null);
 
         public MainWindowViewModel()
         {
-            _fileRepository = new FileRepository();
+            
             MediaFiles = new ObservableCollection<MediaFile>();
         }
 
@@ -51,6 +51,12 @@ namespace NoreaApp.ViewModels
 
         }
 
+        private void UpdateMediaFile()
+        {
+            MediaFile mediaFile = SelectedItem;
+
+            _repository.Update(mediaFile);
+        }
 
         public void Display()
         {
@@ -64,7 +70,7 @@ namespace NoreaApp.ViewModels
             {
                 string[] chosenPaths = dialog.FileNames;
 
-                var tempMediaFiles = _fileRepository.ReadAll(chosenPaths);
+                var tempMediaFiles = _repository.ReadAll(chosenPaths);
 
                 MediaFiles.Clear();
 
@@ -74,6 +80,11 @@ namespace NoreaApp.ViewModels
                 }
 
             }
+
+            // if () ikke har alle customtags
+            // så kald metadata repo
+            // create som laver alle vores customtags, og sætter dem til empty string
+
 
         }
 
