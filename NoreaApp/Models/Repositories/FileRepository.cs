@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.IO;
+using System.Security.Cryptography;
 using NoreaApp.Models.Audio;
 using TagLib;
 
@@ -25,32 +26,8 @@ public class FileRepository : IRepository
         }
     }
 
-
-    // todo: Lav en collection til at gemme alle vores klasser
-    // todo: Differentiere mellem klasser vha metadata
-    //public void Read(string filePath)
-    //{
-    //    Dictionary<string, string> metadataCollection = [];
-
-    //    var tFile = TagLib.File.Create(filePath);
-
-    //    metadataCollection.Add("Title", tFile.Tag.Title);
-    //    metadataCollection.Add("Artist", tFile.Tag.FirstPerformer);
-    //    metadataCollection.Add("Album", tFile.Tag.Album);
-    //    metadataCollection.Add("Year", tFile.Tag.Year.ToString());
-    //    metadataCollection.Add("Track", tFile.Tag.Track.ToString());
-    //    metadataCollection.Add("AlbumArtist", tFile.Tag.FirstAlbumArtist);
-    //    metadataCollection.Add("Genre", tFile.Tag.FirstGenre);
-    //    metadataCollection.Add("Comment", tFile.Tag.Comment);
-    //    metadataCollection.Add("Directory", filePath);
-    //    metadataCollection.Add("Composer", tFile.Tag.FirstComposer);
-
-    //    Music music = new Music(metadataCollection);
-    //}
-
     public ObservableCollection<MediaFile> ReadAll(string[] filePaths)
     {
-
         ObservableCollection<MediaFile> mediaFiles = [];
         
         // Loop over each file
@@ -86,11 +63,33 @@ public class FileRepository : IRepository
 
 
     // update existing tags metadata
-    public void Update()
+    public void Update(MediaFile mediaFile)
     {
+        var file = TagLib.File.Create(mediaFile.Directory);
 
+        file.Tag.Title = mediaFile.Title;
+        file.Tag.Album = mediaFile.Album;
+        file.Tag.Comment = mediaFile.Comment;
+        file.Tag.Year = (uint)mediaFile.Year;
+        file.Tag.Track = (uint)mediaFile.Track;
+
+        file.Tag.Genres = [ mediaFile.Genre ];
+        file.Tag.Composers = [ mediaFile.Composer ];
+        file.Tag.Performers = [ mediaFile.Artist ];
+        file.Tag.AlbumArtists = [ mediaFile.AlbumArtist ];
+
+        file.Save();
     }
 
     // delete custom tag (field)
-    public void Delete() => throw new NotImplementedException();
+    public void Delete(MediaFile mediaFile, string tagKey)
+    {
+        var tfile = TagLib.File.Create(mediaFile.Directory);
+
+        if (tfile != null)
+        {
+            var id3tag = (TagLib.Id3v2.Tag)tfile.GetTag(TagTypes.Id3v2);
+            id3tag.SetTextFrame(tagKey, "");
+        }
+    }
 }
