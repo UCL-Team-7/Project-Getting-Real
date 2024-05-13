@@ -132,7 +132,14 @@
         <StackPanel Grid.Column="2">
             <Label Content="Filtrering"
                    Margin="0,5,0,0" />
-            <ComboBox Margin="5,0,10,0" />
+            <ComboBox Margin="5,0,10,0">
+                <ComboBoxItem VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="0" Padding="0">
+                    <Button Content="Prædiken" Command="{Binding FilterListCommand}" BorderThickness="0" Background="White"/>
+                </ComboBoxItem>
+                <ComboBoxItem VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="0" Padding="0">
+                    <Button Content="Bibelundervisning" BorderThickness="0" Background="White"/>
+                </ComboBoxItem>                
+            </ComboBox>
         </StackPanel>
         <StackPanel Grid.Column="3">
             <Label Content="Søgning"

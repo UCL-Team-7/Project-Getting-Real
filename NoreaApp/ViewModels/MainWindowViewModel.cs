@@ -2,8 +2,10 @@
 using NoreaApp.Models.Audio;
 using NoreaApp.Models.Repositories;
 using NoreaApp.MVVM;
+using NoreaApp.Views;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Printing;
 
 namespace NoreaApp.ViewModels
 {
@@ -23,8 +25,8 @@ namespace NoreaApp.ViewModels
         public RelayCommand CreateCommand => new RelayCommand(execute => CreateCustomTag(), canExecute => SelectedItem != null);
 
         public RelayCommand DeleteCustomTagCommand => new RelayCommand(execute => DeleteCustomTag(), canExecute => SelectedItem != null);
-        
 
+        public RelayCommand FilterListCommand => new RelayCommand(execute => FilterList(), canExecute => { return true; });
 
         public MainWindowViewModel()
         {
@@ -44,6 +46,11 @@ namespace NoreaApp.ViewModels
             }
         }
 
+        private void FilterList()
+        {
+            SermonWindow sW = new SermonWindow();
+            sW.Show();
+        }
 
         private void CreateCustomTag()
         {
