@@ -1,0 +1,112 @@
+﻿<Window x:Class="NoreaApp.Views.SermonWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NoreaApp.Views"
+        mc:Ignorable="d"
+        Title="SermonWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="70" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <DataGrid Grid.Row="1"
+          Grid.ColumnSpan="4"
+          Margin="10,0,10,0"
+          CanUserAddRows="False"
+          CanUserDeleteRows="False"
+          ItemsSource="{Binding MediaFiles}"
+          SelectedItem="{Binding SelectedItem}"
+          CanUserReorderColumns="False"
+          AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Præst"
+                            Binding="{Binding Priest}"
+                            Width="1*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Kirker"
+                            Binding="{Binding Church}"
+                            Width="1*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Land"
+                            Binding="{Binding Country}"
+                            Width="1*"></DataGridTextColumn>                
+                <DataGridTextColumn Header="Norea Type"
+                            Binding="{Binding NoreaType}"
+                            Width="1*"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <ScrollViewer Grid.Row="1"
+              Grid.Column="4">
+            <StackPanel>
+                <Label Content="Præst" />
+                <TextBox Margin="5,0"
+                 Text="{Binding SelectedItem.Priest, UpdateSourceTrigger=PropertyChanged}" />
+                <Label Content="Kirke" />
+                <TextBox Margin="5,0"
+                 Text="{Binding SelectedItem.Church, UpdateSourceTrigger=PropertyChanged}" />
+                <Label Content="Land" />
+                <TextBox Margin="5,0"
+                 Text="{Binding SelectedItem.Country, UpdateSourceTrigger=PropertyChanged}" />                
+            </StackPanel>
+        </ScrollViewer>
+
+        <!--<Button Grid.Row="2"
+        Grid.Column="0"
+        Content="Indlæs"
+        Command="{Binding DisplayCommand}"
+        Margin="20,10" />-->
+        <Button Grid.Row="2"
+        Grid.Column="1"
+        Content="Ny"
+        Command="{Binding CreateCommand}"
+        Margin="20,10" />
+        <Button Grid.Row="2"
+        Grid.Column="2"
+        Content="Slet"
+        Command="{Binding DeleteCommand}"
+        Margin="20,10" />
+        <Button Grid.Row="2"
+        Grid.Column="3"
+        Content="Eksportér"
+        Margin="20,10" />
+        <Button Grid.Row="2"
+        Grid.Column="4"
+        Content="Gem"
+        Command="{Binding UpdateCommand}"
+        Margin="20,10" />
+
+        <!--<StackPanel Grid.Column="2">
+            <Label Content="Filtrering"
+           Margin="0,5,0,0" />
+            <ComboBox Margin="5,0,10,0">
+                <ComboBoxItem VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="0" Padding="0">
+                    <Button Content="Prædiken" Command="{Binding FilterListCommand}" BorderThickness="0" Background="White"/>
+                </ComboBoxItem>
+                <ComboBoxItem VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="0" Padding="0">
+                    <Button Content="Bibelundervisning" BorderThickness="0" Background="White"/>
+                </ComboBoxItem>
+            </ComboBox>
+        </StackPanel>-->
+        <StackPanel Grid.Column="3">
+            <Label Content="Søgning"
+           Margin="0,5,0,0" />
+            <TextBox Margin="5,0,10,0" />
+        </StackPanel>
+        <Button x:Name="DeleteCustomTag"
+        Content="Delete Custom Tag (TNRT)"
+        Command="{Binding DeleteCustomTagCommand}"
+        HorizontalAlignment="Center"
+        Margin="0,20,0,0"
+        VerticalAlignment="Top" />
+    </Grid>
+</Window>
