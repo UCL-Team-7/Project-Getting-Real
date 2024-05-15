@@ -20,8 +20,7 @@ namespace Views
         public MainWindow()
         {
             InitializeComponent();
-            MainWindowViewModel mvm = new MainWindowViewModel();
-            DataContext = mvm;
+            DataContext = new MainWindowViewModel();
         }
     }
 }
