@@ -34,7 +34,11 @@ internal class SermonRepository : ISermonRepository
 
         file.Tag.Publisher = sermon.Country;
         file.Tag.AmazonId = sermon.Church;
-        file.Tag.Performers = [sermon.Priest];
+
+        if (sermon.Priest != null)
+        {
+            file.Tag.Performers = [sermon.Priest];
+        }
 
         file.Save();
     }
