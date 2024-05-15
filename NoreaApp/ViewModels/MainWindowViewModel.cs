@@ -5,6 +5,7 @@ using NoreaApp.Models.Repositories.Interfaces;
 using NoreaApp.MVVM;
 using Views;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using System.Printing;
 
@@ -20,7 +21,7 @@ namespace NoreaApp.ViewModels
 
         //public RelayCommand AddCommand => new RelayCommand(execute => AddMediaFile(), canExecute => { return true; });
         public RelayCommand DeleteCommand => new RelayCommand(execute => DeleteMediaFile(), canExecute => SelectedItem != null);
-        public RelayCommand SaveCommand => new RelayCommand(execute => Save(), canExecute => CanSave());
+        public RelayCommand ExportCommand => new RelayCommand(execute => Export(), canExecute => CanExport());
         public RelayCommand DisplayCommand => new RelayCommand(execute => Display(), canExecute => { return true; });
         public RelayCommand UpdateCommand => new RelayCommand(execute => UpdateMediaFile(), canExecute => SelectedItem != null);
         public RelayCommand CreateCommand => new RelayCommand(execute => CreateCustomTag(), canExecute => SelectedItem != null);
@@ -152,22 +153,29 @@ namespace NoreaApp.ViewModels
         }
 
 
-        private void Save()
+
+        private void Export()
         {
             //Save to file/db
 
+            string[] headers = new string[] { "TITEL", "KUNSTNER", "ALBUM", "ÅR", "SPOR", "ALBUMSKUNSTNER", "GENRE", "KOMMENTAR", "FILSTI", "KOMPONIST" };
+
             using (StreamWriter sw = new StreamWriter(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MediaFiles.csv")))
             {
+
+                string headerLine = string.Join(";", headers);
+                sw.WriteLine(headerLine);
+
                 foreach (MediaFile file in MediaFiles)
                 {
                     sw.WriteLine(file);
                 }
-
             }
 
         }
 
-        private bool CanSave()
+
+        private bool CanExport()
         {
             // Could be: is db connected? does the user has permission to save etc.
             // Here: Is there any items in MediaFiles list
