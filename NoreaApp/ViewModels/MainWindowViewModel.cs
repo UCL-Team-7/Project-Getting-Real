@@ -1,8 +1,9 @@
 ﻿using Microsoft.Win32;
 using NoreaApp.Models.Audio;
 using NoreaApp.Models.Repositories;
+using NoreaApp.Models.Repositories.Interfaces;
 using NoreaApp.MVVM;
-using NoreaApp.Views;
+using Views;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Printing;
@@ -13,9 +14,9 @@ namespace NoreaApp.ViewModels
     {
         public ObservableCollection<MediaFile> MediaFiles { get; set; }
 
+        private SermonRepository _sermonRepository { get; set; }
         private IRepository _fileRepository = new FileRepository();
         private IMetadataRepository _metadataRepository = new MetadataRepository();
-
 
         //public RelayCommand AddCommand => new RelayCommand(execute => AddMediaFile(), canExecute => { return true; });
         public RelayCommand DeleteCommand => new RelayCommand(execute => DeleteMediaFile(), canExecute => SelectedItem != null);
@@ -30,8 +31,8 @@ namespace NoreaApp.ViewModels
 
         public MainWindowViewModel()
         {
-            
             MediaFiles = new ObservableCollection<MediaFile>();
+            _sermonRepository = new SermonRepository();
         }
 
 
@@ -67,9 +68,7 @@ namespace NoreaApp.ViewModels
 
             MediaFiles.Insert(index, updateMediaFile);
 
-
-            Console.WriteLine("ran custom tag");
-
+            _sermonRepository.Create(updateMediaFile);
         }
 
         private void DeleteCustomTag()
@@ -86,10 +85,6 @@ namespace NoreaApp.ViewModels
             MediaFiles.RemoveAt(index);
 
             MediaFiles.Insert(index, updateMediaFile);
-
-
-            Console.WriteLine("ran custom tag");
-
         }
     
 
@@ -134,6 +129,11 @@ namespace NoreaApp.ViewModels
                 foreach (MediaFile file in tempMediaFiles)
                 {
                     MediaFiles.Add(file);
+
+                    if (file.NoreaType == "Prædiken")
+                    {
+                        _sermonRepository.Create(file);
+                    }
                 }
 
             }
