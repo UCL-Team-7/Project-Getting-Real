@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 
 
-namespace NoreaApp.Models.Repositories;
+namespace NoreaApp.Models.Repositories.Interfaces;
 public interface IRepository
 {
     public void Create();

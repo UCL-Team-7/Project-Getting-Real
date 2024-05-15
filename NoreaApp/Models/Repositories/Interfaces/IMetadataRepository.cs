@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NoreaApp.Models.Audio;
 
-namespace NoreaApp.Models.Repositories;
+namespace NoreaApp.Models.Repositories.Interfaces;
 internal interface IMetadataRepository
 {
     public void Create(MediaFile mediaFile);
