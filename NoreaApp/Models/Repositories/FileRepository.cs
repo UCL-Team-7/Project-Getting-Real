@@ -64,10 +64,26 @@ public class FileRepository : IRepository
         file.Tag.Year = (uint)mediaFile.Year;
         file.Tag.Track = (uint)mediaFile.Track;
 
-        file.Tag.Genres = [ mediaFile.Genre ];
-        file.Tag.Composers = [ mediaFile.Composer ];
-        file.Tag.Performers = [ mediaFile.Artist ];
-        file.Tag.AlbumArtists = [ mediaFile.AlbumArtist ];
+
+        if (mediaFile.Genre != null)
+        {
+            file.Tag.Genres = [mediaFile.Genre];
+        }
+
+        if (mediaFile.Composer != null)
+        {
+            file.Tag.Composers = [mediaFile.Composer];
+        }
+
+        if (mediaFile.Artist != null)
+        {
+            file.Tag.Performers = [mediaFile.Artist];
+        }
+
+        if (mediaFile.AlbumArtist != null)
+        {
+            file.Tag.AlbumArtists = [mediaFile.AlbumArtist];
+        }
 
         file.Save();
     }
