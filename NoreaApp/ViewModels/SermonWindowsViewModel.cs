@@ -28,7 +28,6 @@ internal class SermonWindowsViewModel : ViewModelBase
     public void DeleteSemon()
     {
         sermons.Remove(SelectedItem);
-        SermonRepository.Delete(SelectedItem);
     }
 
 

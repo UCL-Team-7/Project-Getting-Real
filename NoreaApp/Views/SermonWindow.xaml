@@ -65,11 +65,11 @@
         Content="Indlæs"
         Command="{Binding DisplayCommand}"
         Margin="20,10" />-->
-        <Button Grid.Row="2"
+        <!--<Button Grid.Row="2"
         Grid.Column="1"
         Content="Ny"
         Command="{Binding CreateCommand}"
-        Margin="20,10" />
+        Margin="20,10" />-->
         <Button Grid.Row="2"
         Grid.Column="2"
         Content="Slet"
