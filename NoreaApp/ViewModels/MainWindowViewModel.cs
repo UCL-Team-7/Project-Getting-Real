@@ -13,8 +13,8 @@ namespace NoreaApp.ViewModels
     internal class MainWindowViewModel : ViewModelBase
     {
         public ObservableCollection<MediaFile> MediaFiles { get; set; }
-        public SermonRepository SermonRepository { get; set; }
 
+        private SermonRepository _sermonRepository { get; set; }
         private IRepository _fileRepository = new FileRepository();
         private IMetadataRepository _metadataRepository = new MetadataRepository();
 
@@ -32,7 +32,7 @@ namespace NoreaApp.ViewModels
         public MainWindowViewModel()
         {
             MediaFiles = new ObservableCollection<MediaFile>();
-            SermonRepository = new SermonRepository();
+            _sermonRepository = new SermonRepository();
         }
 
 
@@ -68,7 +68,7 @@ namespace NoreaApp.ViewModels
 
             MediaFiles.Insert(index, updateMediaFile);
 
-            SermonRepository.Create(updateMediaFile);
+            _sermonRepository.Create(updateMediaFile);
         }
 
         private void DeleteCustomTag()
@@ -132,7 +132,7 @@ namespace NoreaApp.ViewModels
 
                     if (file.NoreaType == "Prædiken")
                     {
-                        SermonRepository.Create(file);
+                        _sermonRepository.Create(file);
                     }
                 }
 

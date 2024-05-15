@@ -3,15 +3,17 @@ using NoreaApp.Models.Repositories;
 using NoreaApp.MVVM;
 using Views;
 using System.Collections.ObjectModel;
+using NoreaApp.Models.Repositories.Interfaces;
 
 namespace NoreaApp.ViewModels;
 internal class SermonWindowsViewModel : ViewModelBase
 {
-    public SermonRepository SermonRepository = new();
+    private SermonRepository _sermonRepository { get; set; }
     public ObservableCollection<Sermon> sermons { get; set; }
 
 
-    public RelayCommand DeleteCommand => new RelayCommand(execute => DeleteSemon(), canExecute => SelectedItem != null);
+    public RelayCommand DeleteCommand => new(execute => DeleteSemon(), canExecute => SelectedItem != null);
+    public RelayCommand UpdateCommand => new(execute => UpdateSermon(), canExecute => SelectedItem != null);
 
 
     private Sermon _selectedItem;
@@ -25,6 +27,11 @@ internal class SermonWindowsViewModel : ViewModelBase
         }
     }
 
+    public void UpdateSermon()
+    {
+        _sermonRepository.Update(SelectedItem);
+    }
+
     public void DeleteSemon()
     {
         sermons.Remove(SelectedItem);
@@ -33,6 +40,7 @@ internal class SermonWindowsViewModel : ViewModelBase
 
     public SermonWindowsViewModel()
     {
-        sermons = SermonRepository.Read();
+        _sermonRepository = new SermonRepository();
+        sermons = _sermonRepository.Read();
     }
 }
