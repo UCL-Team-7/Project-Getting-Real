@@ -39,33 +39,28 @@ internal class SermonWindowsViewModel : ViewModelBase
     }
 
 
+    private static bool ContainsIgnoreCase(string source, string toCheck) => source?.ToLower().Contains(toCheck) ?? false;
+
     private void SearchSermonList()
     {
         ObservableCollection<Sermon> tempSermons = _sermonRepository.Read();
 
-        if (tempSermons.Count == 0)
+        if (tempSermons.Count == 0 || string.IsNullOrWhiteSpace(SearchBox))
         {
+            sermons = tempSermons;
+            OnPropertyChanged(nameof(sermons));
             return;
         }
 
-        if (SearchBox != "")
-        {
-            string loweredSearchBox = SearchBox.ToLower();
-            List<Sermon> newFiles = tempSermons.Where(file =>
-                    file.Priest != null && file.Priest.ToLower().Contains(loweredSearchBox) ||
-                    file.Church != null && file.Church.ToLower().Contains(loweredSearchBox) ||
-                    file.Country != null && file.Country.ToLower().Contains(loweredSearchBox)
-            ).ToList();
+        string loweredSearchBox = SearchBox.ToLower();
+        List<Sermon> newFiles = tempSermons.Where(file =>
+                ContainsIgnoreCase(file.Priest, loweredSearchBox) ||
+                ContainsIgnoreCase(file.Church, loweredSearchBox) ||
+                ContainsIgnoreCase(file.Country, loweredSearchBox)
+        ).ToList();
 
-            sermons = new ObservableCollection<Sermon>(newFiles);
-        }
-        else
-        {
-            sermons = tempSermons;
-        }
-
+        sermons = new ObservableCollection<Sermon>(newFiles);
         OnPropertyChanged(nameof(sermons));
-
     }
 
 #pragma warning disable CS8604 // Possible null reference argument.

@@ -64,38 +64,34 @@ internal class MainWindowViewModel : ViewModelBase
         }
     }
 
+    private static bool ContainsIgnoreCase(string source, string toCheck) => source?.ToLower().Contains(toCheck) ?? false;
 
     private void SearchFiles()
     {
         ObservableCollection<MediaFile> tempMediaFiles = _fileRepository.ReadCache();
 
-        if (tempMediaFiles.Count == 0)
+        if (tempMediaFiles.Count == 0 || string.IsNullOrWhiteSpace(SearchBox))
         {
+            MediaFiles = tempMediaFiles;
+            OnPropertyChanged(nameof(MediaFiles));
             return;
         }
 
-        if (SearchBox != "")
-        {
-            string loweredSearchBox = SearchBox.ToLower();
-            List<MediaFile> newFiles = tempMediaFiles.Where(file =>
-                    file.Title != null && file.Title.ToLower().Contains(loweredSearchBox) ||
-                    file.Artist != null && file.Artist.ToLower().Contains(loweredSearchBox) ||
-                    file.Album != null && file.Album.ToLower().Contains(loweredSearchBox) ||
-                    file.AlbumArtist != null && file.AlbumArtist.ToLower().Contains(loweredSearchBox) ||
-                    file.Genre != null && file.Genre.ToLower().Contains(loweredSearchBox) ||
-                    file.Comment != null && file.Comment.ToLower().Contains(loweredSearchBox) ||
-                    file.Directory != null && file.Directory.ToLower().Contains(loweredSearchBox) ||
-                    file.Composer != null && file.Composer.ToLower().Contains(loweredSearchBox) ||
-                    file.NoreaType != null && file.NoreaType.ToLower().Contains(loweredSearchBox)
-            ).ToList();
+        string loweredSearchBox = SearchBox.ToLower();
 
-            MediaFiles = new ObservableCollection<MediaFile>(newFiles);
-        }
-        else
-        {
-            MediaFiles = tempMediaFiles;
-        }
+        List<MediaFile> newFiles = tempMediaFiles.Where(file =>
+            ContainsIgnoreCase(file.Title, loweredSearchBox) ||
+            ContainsIgnoreCase(file.Artist, loweredSearchBox) ||
+            ContainsIgnoreCase(file.Album, loweredSearchBox) ||
+            ContainsIgnoreCase(file.AlbumArtist, loweredSearchBox) ||
+            ContainsIgnoreCase(file.Genre, loweredSearchBox) ||
+            ContainsIgnoreCase(file.Comment, loweredSearchBox) ||
+            ContainsIgnoreCase(file.Directory, loweredSearchBox) ||
+            ContainsIgnoreCase(file.Composer, loweredSearchBox) ||
+            ContainsIgnoreCase(file.NoreaType, loweredSearchBox)
+        ).ToList();
 
+        MediaFiles = new ObservableCollection<MediaFile>(newFiles);
         OnPropertyChanged(nameof(MediaFiles));
     }
 
