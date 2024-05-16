@@ -10,7 +10,7 @@ using NoreaApp.Models.Repositories.Interfaces;
 namespace NoreaApp.Models.Repositories;
 internal class SermonRepository : ISermonRepository
 {
-    private static List<Sermon> _sermons = [];
+    private static readonly List<Sermon> s_sermons = [];
 
     public void Create(MediaFile mediaFile) {
         var file = TagLib.File.Create(mediaFile.Directory);
@@ -24,10 +24,10 @@ internal class SermonRepository : ISermonRepository
             Country = file.Tag.Publisher,
         };
 
-        _sermons.Add(sermon);
+        s_sermons.Add(sermon);
     }
-    public void Delete(Sermon sermon) => _sermons.Remove(sermon);
-    public ObservableCollection<Sermon> Read() => new ObservableCollection<Sermon>(_sermons);
+    public void Delete(Sermon sermon) => s_sermons.Remove(sermon);
+    public ObservableCollection<Sermon> Read() => new ObservableCollection<Sermon>(s_sermons);
 
     public void Update(Sermon sermon) {
         var file = TagLib.File.Create(sermon.Directory);
