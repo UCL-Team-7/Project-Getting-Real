@@ -58,6 +58,11 @@ public class FileRepository : IRepository
     {
         var file = TagLib.File.Create(mediaFile.Directory);
 
+        if (file == null)
+        {
+            return;
+        }
+
         file.Tag.Title = mediaFile.Title;
         file.Tag.Album = mediaFile.Album;
         file.Tag.Comment = mediaFile.Comment;
