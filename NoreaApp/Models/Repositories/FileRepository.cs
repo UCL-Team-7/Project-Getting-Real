@@ -31,7 +31,7 @@ public class FileRepository : IRepository
         var id3tag = file.GetTag(TagTypes.Id3v2) as TagLib.Id3v2.Tag;
 
         // Find the custom frame "TXXX" with description "TNRT"
-        var customFrame = id3tag.GetFrames<UserTextInformationFrame>()
+        UserTextInformationFrame? customFrame = id3tag?.GetFrames<UserTextInformationFrame>()
                                  .FirstOrDefault(f => f.FrameId == "TXXX" && f.Description == "TNRT");
         string noreaType = customFrame?.Text.FirstOrDefault() ?? string.Empty;
 
