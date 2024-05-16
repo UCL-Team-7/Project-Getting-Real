@@ -7,5 +7,6 @@ public interface IRepository
 {
     public MediaFile Read(string filePath);
     public ObservableCollection<MediaFile> ReadAll(string[] filePaths);
+    public ObservableCollection<MediaFile> ReadCache();
     public void Update(MediaFile mediaFile);
 }

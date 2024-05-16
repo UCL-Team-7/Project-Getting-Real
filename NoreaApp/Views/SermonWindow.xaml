@@ -100,7 +100,7 @@
         <StackPanel Grid.Column="3">
             <Label Content="Søgning"
            Margin="0,5,0,0" />
-            <TextBox Margin="5,0,10,0" />
+            <TextBox Margin="5,0,10,0" Text="{Binding SearchBox, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
         <Button x:Name="DeleteCustomTag"
         Content="Delete Custom Tag (TNRT)"
@@ -108,5 +108,18 @@
         HorizontalAlignment="Center"
         Margin="0,20,0,0"
         VerticalAlignment="Top" />
+
+        <Button x:Name="btnSearch"
+                Grid.Column="4"
+                Content="Søg"
+                IsDefault="True"
+                Visibility="Visible"
+                Margin="200,0,0,469"
+                IsEnabled="True"
+                Command="{Binding SearchSermons}"
+                Grid.Row="1" />
     </Grid>
+
+
+    
 </Window>

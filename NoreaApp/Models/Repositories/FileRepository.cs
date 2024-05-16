@@ -10,20 +10,26 @@ namespace NoreaApp.Models.Repositories;
 
 public class FileRepository : IRepository
 {
+    private readonly List<MediaFile> _mediaFiles = [];
 
     public ObservableCollection<MediaFile> ReadAll(string[] filePaths)
     {
-        List<MediaFile> mediaFiles = [];
+        if (_mediaFiles.Count > 0)
+        {
+            _mediaFiles.Clear();
+        }
         
         // Loop over each file
         foreach (string filePath in filePaths)
         {
             // Call the Read method for each file
-            mediaFiles.Add(Read(filePath));
+            _mediaFiles.Add(Read(filePath));
         }
 
-        return new ObservableCollection<MediaFile>(mediaFiles);
+        return new ObservableCollection<MediaFile>(_mediaFiles);
     }
+
+    public ObservableCollection<MediaFile> ReadCache() => new(_mediaFiles);
 
     public MediaFile Read(string filePath)
     {

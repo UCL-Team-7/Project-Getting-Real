@@ -29,6 +29,8 @@ internal class MainWindowViewModel : ViewModelBase
     public RelayCommand UpdateCommand => new RelayCommand(execute => UpdateMediaFile(), canExecute => SelectedItem != null);
     public RelayCommand CreateCommand => new RelayCommand(execute => CreateCustomTag(), canExecute => SelectedItem != null);
 
+    public RelayCommand SearchMediaFiles => new RelayCommand(execute => SearchFiles(), canExecute => SearchBox != null);
+
     public RelayCommand DeleteCustomTagCommand => new RelayCommand(execute => DeleteCustomTag(), canExecute => SelectedItem != null);
 
     public RelayCommand FilterListCommand => new RelayCommand(execute => FilterList(), canExecute => { return true; });
@@ -50,6 +52,53 @@ internal class MainWindowViewModel : ViewModelBase
             OnPropertyChanged();
         }
     }
+
+    private string _searchBox = "";
+    public string SearchBox
+    {
+        get { return _searchBox; }
+        set
+        {
+            _searchBox = value;
+            OnPropertyChanged();
+        }
+    }
+
+
+    private void SearchFiles()
+    {
+        ObservableCollection<MediaFile> tempMediaFiles = _fileRepository.ReadCache();
+
+        if (tempMediaFiles.Count == 0)
+        {
+            return;
+        }
+
+        if (SearchBox != "")
+        {
+            string loweredSearchBox = SearchBox.ToLower();
+            List<MediaFile> newFiles = tempMediaFiles.Where(file =>
+                    file.Title != null && file.Title.ToLower().Contains(loweredSearchBox) ||
+                    file.Artist != null && file.Artist.ToLower().Contains(loweredSearchBox) ||
+                    file.Album != null && file.Album.ToLower().Contains(loweredSearchBox) ||
+                    file.AlbumArtist != null && file.AlbumArtist.ToLower().Contains(loweredSearchBox) ||
+                    file.Genre != null && file.Genre.ToLower().Contains(loweredSearchBox) ||
+                    file.Comment != null && file.Comment.ToLower().Contains(loweredSearchBox) ||
+                    file.Directory != null && file.Directory.ToLower().Contains(loweredSearchBox) ||
+                    file.Composer != null && file.Composer.ToLower().Contains(loweredSearchBox) ||
+                    file.NoreaType != null && file.NoreaType.ToLower().Contains(loweredSearchBox)
+            ).ToList();
+
+            MediaFiles = new ObservableCollection<MediaFile>(newFiles);
+        }
+        else
+        {
+            MediaFiles = tempMediaFiles;
+        }
+
+        OnPropertyChanged(nameof(MediaFiles));
+    }
+
 
     private void FilterList()
     {
