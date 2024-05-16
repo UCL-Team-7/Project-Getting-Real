@@ -20,7 +20,7 @@ namespace NoreaApp.ViewModels
         private IRepository _fileRepository = new FileRepository();
         private IMetadataRepository _metadataRepository = new MetadataRepository();
 
-        //public RelayCommand AddCommand => new RelayCommand(execute => AddMediaFile(), canExecute => { return true; });
+        //public RelayCommand AddCommand => new RelayCommand(_execute => AddMediaFile(), _canExecute => { return true; });
         public RelayCommand DeleteCommand => new RelayCommand(execute => DeleteMediaFile(), canExecute => SelectedItem != null);
         public RelayCommand ExportCommand => new RelayCommand(execute => Export(), canExecute => CanExport());
         public RelayCommand DisplayCommand => new RelayCommand(execute => Display(), canExecute => { return true; });
