@@ -10,6 +10,8 @@ using System.IO;
 using System.Printing;
 using System.Text;
 
+#pragma warning disable CS8600, CS8604 // Converting null literal or possible null value to non-nullable type.
+
 namespace NoreaApp.ViewModels
 {
     internal class MainWindowViewModel : ViewModelBase
@@ -38,8 +40,8 @@ namespace NoreaApp.ViewModels
         }
 
 
-        private MediaFile _selectedItem;
-        public MediaFile SelectedItem
+        private MediaFile? _selectedItem;
+        public MediaFile? SelectedItem
         {
             get { return _selectedItem; }
             set
@@ -105,13 +107,6 @@ namespace NoreaApp.ViewModels
 
         }
 
-        private void UpdateMediaFile()
-        {
-            MediaFile mediaFile = SelectedItem;
-
-            _fileRepository.Update(mediaFile);
-        }
-
         public void Display()
         {
             OpenFileDialog dialog = new OpenFileDialog();
@@ -143,14 +138,6 @@ namespace NoreaApp.ViewModels
 
         }
 
-
-        private void DeleteMediaFile()
-        {
-            MediaFiles.Remove(SelectedItem);
-        }
-
-
-
         private void Export()
         {
             //Save to file/db
@@ -172,6 +159,9 @@ namespace NoreaApp.ViewModels
         }
 
         private bool CanExport() => MediaFiles.Any();
+        private void DeleteMediaFile() => MediaFiles.Remove(SelectedItem);
+        private void UpdateMediaFile() => _fileRepository.Update(SelectedItem);
 
     }
 }
+#pragma warning restore CS8600, CS8604 // Converting null literal or possible null value to non-nullable type.

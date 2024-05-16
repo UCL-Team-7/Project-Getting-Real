@@ -16,8 +16,8 @@ internal class SermonWindowsViewModel : ViewModelBase
     public RelayCommand UpdateCommand => new(execute => UpdateSermon(), canExecute => SelectedItem != null);
 
 
-    private Sermon _selectedItem;
-    public Sermon SelectedItem
+    private Sermon? _selectedItem;
+    public Sermon? SelectedItem
     {
         get { return _selectedItem; }
         set
