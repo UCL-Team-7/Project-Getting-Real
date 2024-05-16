@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Views"
         mc:Ignorable="d"
         Title="MainWindow"
-        Height="625"
+        Height="675"
         Width="1000">
     <Grid>
         <Grid.RowDefinitions>
@@ -96,13 +96,24 @@
                 <Label Content="Kommentar" />
                 <TextBox Margin="5,0"
                          Text="{Binding SelectedItem.Comment, UpdateSourceTrigger=PropertyChanged}" />
-                <Label Content="Sti" />
+                <Label Content="Filsti" />
                 <TextBox Margin="5,0"
                          Text="{Binding SelectedItem.Directory, UpdateSourceTrigger=PropertyChanged}" />
                 <Label Content="Komponist" />
                 <TextBox Margin="5,0"
                          Text="{Binding SelectedItem.Composer, UpdateSourceTrigger=PropertyChanged}" />
-                <Label Content="Tilføj Norea-tag"/>
+                <Label Content="Norea Type"/>
+                <ComboBox Margin="5,0">
+                    <ComboBoxItem VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="0" Padding="0">
+                        <Button Content="Prædiken" Command="{Binding CreateCommand}" BorderThickness="0" Background="White"/>
+                    </ComboBoxItem>
+                    <ComboBoxItem VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="0" Padding="0">
+                        <Button Content="Bibelundervisning" BorderThickness="0" Background="White"/>
+                    </ComboBoxItem>
+                    <ComboBoxItem VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="0" Padding="0">
+                        <Button Content="Fjern Type" Command="{Binding DeleteCustomTagCommand}" BorderThickness="0" Background="White"/>
+                    </ComboBoxItem>
+                </ComboBox>
             </StackPanel>
         </ScrollViewer>
 
@@ -111,18 +122,18 @@
                 Content="Indlæs"
                 Command="{Binding DisplayCommand}"
                 Margin="20,10" />
-        <Button Grid.Row="2"
+        <!--<Button Grid.Row="2"
                 Grid.Column="1"
                 Content="Ny"
                 Command="{Binding CreateCommand}"
-                Margin="20,10" />
+                Margin="20,10" />-->
         <Button Grid.Row="2"
-                Grid.Column="2"
-                Content="Slet"
+                Grid.Column="1"
+                Content="Fjern"
                 Command="{Binding DeleteCommand}"
                 Margin="20,10" />
         <Button Grid.Row="2"
-                Grid.Column="3"
+                Grid.Column="2"
                 Content="Eksportér"
                 Command="{Binding ExportCommand}"
                 Margin="20,10" />
@@ -141,23 +152,23 @@
                 </ComboBoxItem>
                 <ComboBoxItem VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="0" Padding="0">
                     <Button Content="Bibelundervisning" BorderThickness="0" Background="White"/>
-                </ComboBoxItem>                
+                </ComboBoxItem>
             </ComboBox>
         </StackPanel>
         <StackPanel Grid.Column="3">
             <Label Content="Søgning"
                    Margin="0,5,0,0" />
-            <TextBox Margin="5,0,10,0" Text="{Binding SearchBox}"/>
+            <TextBox Margin="5,0,10,0" Text="{Binding SearchBox, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
-        
-        <Button x:Name="DeleteCustomTag"
-                Content="Delete Custom Tag (TNRT)"
-                Command="{Binding DeleteCustomTagCommand}"
-                HorizontalAlignment="Center"
-                Margin="0,20,0,0"
-                VerticalAlignment="Top" />
-        
-        <Button x:Name="btnSearch" Grid.Column="5" Content="Søg" IsDefault="True" Visibility="Hidden" IsEnabled="False" Command="{Binding SearchMediaFiles}"/>
+ <Button x:Name="btnSearch"
+                Grid.Column="4"
+                Content="Søg"
+                IsDefault="True"
+                Visibility="Visible"
+                Margin="200,0,0,469"
+                IsEnabled="True"
+                Command="{Binding SearchMediaFiles}"
+                Grid.Row="1" />
 
     </Grid>
 </Window>

@@ -17,6 +17,7 @@ internal class SermonWindowsViewModel : ViewModelBase
     public RelayCommand DeleteCommand => new(execute => DeleteSemon(), canExecute => SelectedItem != null);
     public RelayCommand UpdateCommand => new(execute => UpdateSermon(), canExecute => SelectedItem != null);
     public RelayCommand ExportSermonsCommand => new(execute => ExportSermons(), canExecute => { return true; });
+    public RelayCommand SearchSermons => new(execute => SearchSermonList(), canExecute => SearchBox != null);
 
 
     private Sermon? _selectedItem;
@@ -30,9 +31,45 @@ internal class SermonWindowsViewModel : ViewModelBase
         }
     }
 
+    private string _searchBox = "";
+    public string SearchBox
+    {
+        get { return _searchBox; }
+        set
+        {
+            _searchBox = value;
+            OnPropertyChanged();
+        }
+    }
+
+
+    private static bool ContainsIgnoreCase(string source, string toCheck) => source?.ToLower().Contains(toCheck) ?? false;
+
+    private void SearchSermonList()
+    {
+        ObservableCollection<Sermon> tempSermons = _sermonRepository.Read();
+
+        if (tempSermons.Count == 0 || string.IsNullOrWhiteSpace(SearchBox))
+        {
+            sermons = tempSermons;
+            OnPropertyChanged(nameof(sermons));
+            return;
+        }
+
+        string loweredSearchBox = SearchBox.ToLower();
+        List<Sermon> newFiles = tempSermons.Where(file =>
+                ContainsIgnoreCase(file.Priest, loweredSearchBox) ||
+                ContainsIgnoreCase(file.Church, loweredSearchBox) ||
+                ContainsIgnoreCase(file.Country, loweredSearchBox)
+        ).ToList();
+
+        sermons = new ObservableCollection<Sermon>(newFiles);
+        OnPropertyChanged(nameof(sermons));
+    }
+
 #pragma warning disable CS8604 // Possible null reference argument.
-    public void UpdateSermon() => _sermonRepository.Update(SelectedItem);
-    public void DeleteSemon() => sermons.Remove(SelectedItem);
+    private void UpdateSermon() => _sermonRepository.Update(SelectedItem);
+    private void DeleteSemon() => sermons.Remove(SelectedItem);
 #pragma warning restore CS8604 // Possible null reference argument.
 
     public SermonWindowsViewModel()
