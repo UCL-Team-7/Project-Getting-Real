@@ -55,8 +55,4 @@ internal class MetadataRepository : IMetadataRepository
             }
         }
     }
-
-    public void Read() => throw new NotImplementedException();
-    public void ReadAll() => throw new NotImplementedException();
-    public void Update() => throw new NotImplementedException();
 }

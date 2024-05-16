@@ -5,9 +5,7 @@ using System.Collections.ObjectModel;
 namespace NoreaApp.Models.Repositories.Interfaces;
 public interface IRepository
 {
-    public void Create();
     public MediaFile Read(string filePath);
     public ObservableCollection<MediaFile> ReadAll(string[] filePaths);
     public void Update(MediaFile mediaFile);
-    public void Delete();
 }
