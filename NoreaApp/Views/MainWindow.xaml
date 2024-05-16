@@ -30,7 +30,8 @@
                   ItemsSource="{Binding MediaFiles}"
                   SelectedItem="{Binding SelectedItem}"
                   CanUserReorderColumns="False"
-                  AutoGenerateColumns="False">
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Titel"
                                     Binding="{Binding Title}"
@@ -101,6 +102,7 @@
                 <Label Content="Komponist" />
                 <TextBox Margin="5,0"
                          Text="{Binding SelectedItem.Composer, UpdateSourceTrigger=PropertyChanged}" />
+                <Label Content="Tilføj Norea-tag"/>
             </StackPanel>
         </ScrollViewer>
 
@@ -145,14 +147,17 @@
         <StackPanel Grid.Column="3">
             <Label Content="Søgning"
                    Margin="0,5,0,0" />
-            <TextBox Margin="5,0,10,0" />
+            <TextBox Margin="5,0,10,0" Text="{Binding SearchBox}"/>
         </StackPanel>
+        
         <Button x:Name="DeleteCustomTag"
                 Content="Delete Custom Tag (TNRT)"
                 Command="{Binding DeleteCustomTagCommand}"
                 HorizontalAlignment="Center"
                 Margin="0,20,0,0"
                 VerticalAlignment="Top" />
+        
+        <Button x:Name="btnSearch" Grid.Column="5" Content="Søg" IsDefault="True" Visibility="Hidden" IsEnabled="False" Command="{Binding SearchMediaFiles}"/>
 
     </Grid>
 </Window>
