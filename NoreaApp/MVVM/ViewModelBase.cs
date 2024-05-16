@@ -6,17 +6,16 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NoreaApp.MVVM
+namespace NoreaApp.MVVM;
+
+internal class ViewModelBase : INotifyPropertyChanged
 {
-    internal class ViewModelBase : INotifyPropertyChanged
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
+
 }
