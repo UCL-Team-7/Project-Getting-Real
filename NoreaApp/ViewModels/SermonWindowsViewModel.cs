@@ -4,6 +4,8 @@ using NoreaApp.MVVM;
 using Views;
 using System.Collections.ObjectModel;
 using NoreaApp.Models.Repositories.Interfaces;
+using System.IO;
+using System.Text;
 
 namespace NoreaApp.ViewModels;
 internal class SermonWindowsViewModel : ViewModelBase
@@ -14,7 +16,9 @@ internal class SermonWindowsViewModel : ViewModelBase
 
     public RelayCommand DeleteCommand => new(execute => DeleteSemon(), canExecute => SelectedItem != null);
     public RelayCommand UpdateCommand => new(execute => UpdateSermon(), canExecute => SelectedItem != null);
+    public RelayCommand ExportSermonsCommand => new(execute => ExportSermons(), canExecute => { return true; });
     public RelayCommand SearchSermons => new(execute => SearchSermonList(), canExecute => SearchBox != null);
+
 
     private Sermon? _selectedItem;
     public Sermon? SelectedItem
@@ -73,4 +77,28 @@ internal class SermonWindowsViewModel : ViewModelBase
         _sermonRepository = new SermonRepository();
         sermons = _sermonRepository.Read();
     }
+
+
+    private void ExportSermons()
+    {
+        //Save to file/db
+       
+        string[] headers = ["TITEL", "PRÆST", "ALBUM", "ÅR", "KIRKE", "LAND", "KOMMENTAR", "FILSTI", "NOREA TYPE"];
+
+
+        using (StreamWriter sw = new StreamWriter(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sermons.csv"), false, Encoding.UTF8))
+        {
+
+            string headerLine = string.Join(";", headers);
+            sw.WriteLine(headerLine);
+
+            foreach (Sermon file in sermons)
+            {
+                sw.WriteLine(file);
+            }
+        }
+
+    }
+
+
 }

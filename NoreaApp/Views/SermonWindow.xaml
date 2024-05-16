@@ -84,7 +84,7 @@
         <Button Grid.Row="2"
         Grid.Column="3"
         Content="Eksportér"
-        Command="{Binding ExportCommand}"
+        Command="{Binding ExportSermonsCommand}"
         Margin="20,10" />
         <Button Grid.Row="2"
         Grid.Column="4"

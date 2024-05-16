@@ -16,14 +16,18 @@ internal class SermonRepository : ISermonRepository
         var file = TagLib.File.Create(mediaFile.Directory);
 
         if (file != null)
-        {
+        {           
             Sermon sermon = new()
             {
-                NoreaType = mediaFile.NoreaType,
-                Directory = mediaFile.Directory,
+                Title = mediaFile.Title,
                 Priest = mediaFile.Artist ?? mediaFile.AlbumArtist ?? "",
+                Album = mediaFile.Album,
+                Year = mediaFile.Year,
                 Church = file.Tag.AmazonId,
                 Country = file.Tag.Publisher,
+                Comment = mediaFile.Comment,
+                Directory = mediaFile.Directory,
+                NoreaType = mediaFile.NoreaType,                          
             };
 
             s_sermons.Add(sermon);

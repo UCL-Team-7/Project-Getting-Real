@@ -175,19 +175,13 @@ internal class MainWindowViewModel : ViewModelBase
 
             OnPropertyChanged(nameof(MediaFiles));
         }
-
-        // if () ikke har alle customtags
-        // så kald metadata repo
-        // create som laver alle vores customtags, og sætter dem til empty string
-
-
     }
 
     private void Export()
     {
         //Save to file/db
 
-        string[] headers = ["TITEL", "KUNSTNER", "ALBUM", "ÅR", "SPOR", "ALBUMSKUNSTNER", "GENRE", "KOMMENTAR", "FILSTI", "KOMPONIST"];
+        string[] headers = ["TITEL", "KUNSTNER", "ALBUM", "ÅR", "SPOR", "ALBUMSKUNSTNER", "GENRE", "KOMMENTAR", "FILSTI", "KOMPONIST", "NOREA TYPE"];
 
         using (StreamWriter sw = new StreamWriter(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MediaFiles.csv"), false, Encoding.UTF8))
         {

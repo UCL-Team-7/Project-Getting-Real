@@ -27,5 +27,6 @@ public class MediaFile : IMediaFile
         $"{Genre ?? ""};" +
         $"{Comment ?? ""};" +
         $"{Directory ?? ""};" +
+        $"{Composer ?? ""}" +
         $"{Composer ?? ""}";
 }
