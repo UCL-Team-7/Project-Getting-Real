@@ -27,16 +27,10 @@ internal class SermonWindowsViewModel : ViewModelBase
         }
     }
 
-    public void UpdateSermon()
-    {
-        _sermonRepository.Update(SelectedItem);
-    }
-
-    public void DeleteSemon()
-    {
-        sermons.Remove(SelectedItem);
-    }
-
+#pragma warning disable CS8604 // Possible null reference argument.
+    public void UpdateSermon() => _sermonRepository.Update(SelectedItem);
+    public void DeleteSemon() => sermons.Remove(SelectedItem);
+#pragma warning restore CS8604 // Possible null reference argument.
 
     public SermonWindowsViewModel()
     {
