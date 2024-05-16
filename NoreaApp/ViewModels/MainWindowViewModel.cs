@@ -122,22 +122,18 @@ namespace NoreaApp.ViewModels
 
             if (userClicksOK == true)
             {
-                string[] chosenPaths = dialog.FileNames;
-
-                ObservableCollection<MediaFile> tempMediaFiles = _fileRepository.ReadAll(chosenPaths);
-
                 MediaFiles.Clear();
+                MediaFiles = _fileRepository.ReadAll(dialog.FileNames);
 
-                foreach (MediaFile file in tempMediaFiles)
+                foreach (MediaFile file in MediaFiles)
                 {
-                    MediaFiles.Add(file);
-
                     if (file.NoreaType == "Prædiken")
                     {
                         _sermonRepository.Create(file);
                     }
                 }
 
+                OnPropertyChanged(nameof(MediaFiles));
             }
 
             // if () ikke har alle customtags

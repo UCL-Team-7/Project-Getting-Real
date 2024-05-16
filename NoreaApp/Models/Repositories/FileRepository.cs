@@ -13,7 +13,7 @@ public class FileRepository : IRepository
 
     public ObservableCollection<MediaFile> ReadAll(string[] filePaths)
     {
-        ObservableCollection<MediaFile> mediaFiles = [];
+        List<MediaFile> mediaFiles = [];
         
         // Loop over each file
         foreach (string filePath in filePaths)
@@ -22,7 +22,7 @@ public class FileRepository : IRepository
             mediaFiles.Add(Read(filePath));
         }
 
-        return mediaFiles;
+        return new ObservableCollection<MediaFile>(mediaFiles);
     }
 
     public MediaFile Read(string filePath)
