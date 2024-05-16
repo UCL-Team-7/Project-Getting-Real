@@ -30,10 +30,13 @@
           CanUserReorderColumns="False"
           AutoGenerateColumns="False">
             <DataGrid.Columns>
+                <DataGridTextColumn Header="Titel"
+                            Binding="{Binding Titel}"
+                            Width="1*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Præst"
                             Binding="{Binding Priest}"
                             Width="1*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Kirker"
+                <DataGridTextColumn Header="Kirke"
                             Binding="{Binding Church}"
                             Width="1*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Land"
@@ -48,6 +51,9 @@
         <ScrollViewer Grid.Row="1"
               Grid.Column="4">
             <StackPanel>
+                <Label Content="Titel" />
+                <TextBox Margin="5,0"
+                 Text="{Binding SelectedItem.Titel, UpdateSourceTrigger=PropertyChanged}" />
                 <Label Content="Præst" />
                 <TextBox Margin="5,0"
                  Text="{Binding SelectedItem.Priest, UpdateSourceTrigger=PropertyChanged}" />
@@ -72,12 +78,13 @@
         Margin="20,10" />-->
         <Button Grid.Row="2"
         Grid.Column="2"
-        Content="Slet"
+        Content="Fjern"
         Command="{Binding DeleteCommand}"
         Margin="20,10" />
         <Button Grid.Row="2"
         Grid.Column="3"
         Content="Eksportér"
+        Command="{Binding ExportCommand}"
         Margin="20,10" />
         <Button Grid.Row="2"
         Grid.Column="4"
@@ -97,16 +104,21 @@
                 </ComboBoxItem>
             </ComboBox>
         </StackPanel>-->
+        
         <StackPanel Grid.Column="3">
             <Label Content="Søgning"
            Margin="0,5,0,0" />
-            <TextBox Margin="5,0,10,0" />
+            <TextBox Margin="5,0,10,0" Text="{Binding SearchBox}" />
         </StackPanel>
-        <Button x:Name="DeleteCustomTag"
+        
+        <!--<Button x:Name="DeleteCustomTag"
         Content="Delete Custom Tag (TNRT)"
         Command="{Binding DeleteCustomTagCommand}"
         HorizontalAlignment="Center"
         Margin="0,20,0,0"
-        VerticalAlignment="Top" />
+        VerticalAlignment="Top" />-->
+
+        <Button x:Name="btnSearch" Grid.Column="5" Content="Søg" IsDefault="True" Visibility="Hidden" IsEnabled="False" Command="{Binding SearchMediaFiles}"/>
+
     </Grid>
 </Window>
