@@ -10,8 +10,5 @@ namespace NoreaApp.Models.Repositories.Interfaces;
 internal interface IMetadataRepository
 {
     public void Create(MediaFile mediaFile);
-    public void Read();
-    public void ReadAll();
-    public void Update();
     public void DeleteCustomTag(MediaFile mediaFile);
 }

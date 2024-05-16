@@ -92,7 +92,4 @@ public class FileRepository : IRepository
 
         file.Save();
     }
-
-    public void Create() => throw new NotImplementedException();
-    public void Delete() => throw new NotImplementedException();
 }
