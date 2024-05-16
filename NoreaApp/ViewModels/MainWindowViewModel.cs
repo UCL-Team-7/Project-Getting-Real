@@ -124,7 +124,7 @@ namespace NoreaApp.ViewModels
             {
                 string[] chosenPaths = dialog.FileNames;
 
-                var tempMediaFiles = _fileRepository.ReadAll(chosenPaths);
+                ObservableCollection<MediaFile> tempMediaFiles = _fileRepository.ReadAll(chosenPaths);
 
                 MediaFiles.Clear();
 
@@ -159,7 +159,7 @@ namespace NoreaApp.ViewModels
         {
             //Save to file/db
 
-            string[] headers = new string[] { "TITEL", "KUNSTNER", "ALBUM", "ÅR", "SPOR", "ALBUMSKUNSTNER", "GENRE", "KOMMENTAR", "FILSTI", "KOMPONIST" };
+            string[] headers = ["TITEL", "KUNSTNER", "ALBUM", "ÅR", "SPOR", "ALBUMSKUNSTNER", "GENRE", "KOMMENTAR", "FILSTI", "KOMPONIST"];
 
             using (StreamWriter sw = new StreamWriter(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MediaFiles.csv"), false, Encoding.UTF8))
             {
@@ -175,22 +175,7 @@ namespace NoreaApp.ViewModels
 
         }
 
-
-        private bool CanExport()
-        {
-            // Could be: is db connected? does the user has permission to save etc.
-            // Here: Is there any items in MediaFiles list
-
-            bool result = false;
-
-            if (MediaFiles.Any())
-            {
-                result = true;
-            }
-
-            return result;
-        }
-
+        private bool CanExport() => MediaFiles.Any();
 
     }
 }
