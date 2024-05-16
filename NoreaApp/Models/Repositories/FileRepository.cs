@@ -13,7 +13,7 @@ public class FileRepository : IRepository
 
     public ObservableCollection<MediaFile> ReadAll(string[] filePaths)
     {
-        ObservableCollection<MediaFile> mediaFiles = [];
+        List<MediaFile> mediaFiles = [];
         
         // Loop over each file
         foreach (string filePath in filePaths)
@@ -22,7 +22,7 @@ public class FileRepository : IRepository
             mediaFiles.Add(Read(filePath));
         }
 
-        return mediaFiles;
+        return new ObservableCollection<MediaFile>(mediaFiles);
     }
 
     public MediaFile Read(string filePath)
@@ -31,7 +31,7 @@ public class FileRepository : IRepository
         var id3tag = file.GetTag(TagTypes.Id3v2) as TagLib.Id3v2.Tag;
 
         // Find the custom frame "TXXX" with description "TNRT"
-        var customFrame = id3tag.GetFrames<UserTextInformationFrame>()
+        UserTextInformationFrame? customFrame = id3tag?.GetFrames<UserTextInformationFrame>()
                                  .FirstOrDefault(f => f.FrameId == "TXXX" && f.Description == "TNRT");
         string noreaType = customFrame?.Text.FirstOrDefault() ?? string.Empty;
 
@@ -57,6 +57,11 @@ public class FileRepository : IRepository
     public void Update(MediaFile mediaFile)
     {
         var file = TagLib.File.Create(mediaFile.Directory);
+
+        if (file == null)
+        {
+            return;
+        }
 
         file.Tag.Title = mediaFile.Title;
         file.Tag.Album = mediaFile.Album;

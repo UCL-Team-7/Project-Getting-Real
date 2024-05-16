@@ -10,23 +10,25 @@ internal class MetadataRepository : IMetadataRepository
     // create custom tag
     public void Create(MediaFile mediaFile)
     {
-
         // Load the audio file
-        string filePath = mediaFile.Directory;
-        var file = TagLib.File.Create(filePath);
+        var file = TagLib.File.Create(mediaFile.Directory);
 
-        // Access the tag
-        var tag = file.GetTag(TagLib.TagTypes.Id3v2, true) as TagLib.Id3v2.Tag;
 
-        // Create a custom text frame
-        var customFrame = new UserTextInformationFrame("TNRT");
-        customFrame.Text = new string[] { "Prædiken" };
+        if (file != null)
+        {
+            // Access the tag
+            var tag = file.GetTag(TagLib.TagTypes.Id3v2, true) as TagLib.Id3v2.Tag;
 
-        // Add the custom frame to the tag
-        tag.AddFrame(customFrame);
+            // Create a custom text frame
+            var customFrame = new UserTextInformationFrame("TNRT");
+            customFrame.Text = new string[] { "Prædiken" };
 
-        // Save changes
-        file.Save();
+            // Add the custom frame to the tag
+            tag?.AddFrame(customFrame);
+
+            // Save changes
+            file.Save();
+        }
     }
 
     // delete custom tag (field)
@@ -44,7 +46,7 @@ internal class MetadataRepository : IMetadataRepository
                                             .ToList();
 
                 // Remove all frames with the specified description
-                foreach (var frame in framesToRemove)
+                foreach (UserTextInformationFrame? frame in framesToRemove)
                 {
                     id3tag.RemoveFrame(frame);
                 }

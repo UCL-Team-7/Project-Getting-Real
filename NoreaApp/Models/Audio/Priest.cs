@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 namespace NoreaApp.Models.Audio;
 public class Priest
 {
-    public string Name { get; set; }
-    public string BiographicalText { get; set; }
+    public string? Name { get; set; }
+    public string? BiographicalText { get; set; }
     public List<Sermon> Sermons { get; set; }
 
 

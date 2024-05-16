@@ -16,8 +16,8 @@ internal class SermonWindowsViewModel : ViewModelBase
     public RelayCommand UpdateCommand => new(execute => UpdateSermon(), canExecute => SelectedItem != null);
 
 
-    private Sermon _selectedItem;
-    public Sermon SelectedItem
+    private Sermon? _selectedItem;
+    public Sermon? SelectedItem
     {
         get { return _selectedItem; }
         set
@@ -27,16 +27,10 @@ internal class SermonWindowsViewModel : ViewModelBase
         }
     }
 
-    public void UpdateSermon()
-    {
-        _sermonRepository.Update(SelectedItem);
-    }
-
-    public void DeleteSemon()
-    {
-        sermons.Remove(SelectedItem);
-    }
-
+#pragma warning disable CS8604 // Possible null reference argument.
+    public void UpdateSermon() => _sermonRepository.Update(SelectedItem);
+    public void DeleteSemon() => sermons.Remove(SelectedItem);
+#pragma warning restore CS8604 // Possible null reference argument.
 
     public SermonWindowsViewModel()
     {
