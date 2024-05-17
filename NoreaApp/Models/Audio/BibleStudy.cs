@@ -9,6 +9,5 @@ public class BibleStudy : MediaFile
     public string BookTitle { get; set; }
     public int Chapter { get; set; }
     public string Verse { get; set; }
-    public BibleBook BibleBook { get; set; }
 
 }

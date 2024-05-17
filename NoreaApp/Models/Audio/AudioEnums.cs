@@ -11,9 +11,9 @@ public enum EventCategory
 
 public enum NoreaTypes
 {
-    Prædiken = 0,
-    Andagt = 1,
-    Sang = 2,
-    Bibelundervisning = 3,
-    Foredrag = 4
+    Sermon = 0,
+    Devotion = 1,
+    Music = 2,
+    BibleStudy = 3,
+    Lecture = 4
 }
