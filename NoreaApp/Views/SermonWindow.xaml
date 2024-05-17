@@ -28,10 +28,11 @@
           ItemsSource="{Binding sermons}"
           SelectedItem="{Binding SelectedItem}"
           CanUserReorderColumns="False"
-          AutoGenerateColumns="False">
+          AutoGenerateColumns="False"
+          IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Titel"
-                            Binding="{Binding Titel}"
+                            Binding="{Binding Title}"
                             Width="1*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Præst"
                             Binding="{Binding Priest}"
@@ -77,12 +78,12 @@
         Command="{Binding CreateCommand}"
         Margin="20,10" />-->
         <Button Grid.Row="2"
-        Grid.Column="2"
+        Grid.Column="1"
         Content="Fjern"
         Command="{Binding DeleteCommand}"
         Margin="20,10" />
         <Button Grid.Row="2"
-        Grid.Column="3"
+        Grid.Column="2"
         Content="Eksportér"
         Command="{Binding ExportSermonsCommand}"
         Margin="20,10" />
@@ -108,7 +109,15 @@
         <StackPanel Grid.Column="3">
             <Label Content="Søgning"
            Margin="0,5,0,0" />
-        <TextBox Margin="5,0,10,0" Text="{Binding SearchBox, UpdateSourceTrigger=PropertyChanged}"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBox Width="115" Margin="5,0,5,0" Text="{Binding SearchBox, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button x:Name="btnSearch"
+                        Content="Søg"
+                        IsDefault="True"
+                        IsEnabled="True"
+                        Command="{Binding SearchSermons}"
+                        Width="Auto"/>
+            </StackPanel>        
         </StackPanel>
         
         <!--<Button x:Name="DeleteCustomTag"
@@ -118,7 +127,7 @@
         Margin="0,20,0,0"
         VerticalAlignment="Top" />-->
 
-        <Button x:Name="btnSearch"
+        <!--<Button x:Name="btnSearch"
                 Grid.Column="4"
                 Content="Søg"
                 IsDefault="True"
@@ -126,7 +135,7 @@
                 Margin="200,0,0,469"
                 IsEnabled="True"
                 Command="{Binding SearchSermons}"
-                Grid.Row="1" />
+                Grid.Row="1" />-->
     </Grid>
 
 

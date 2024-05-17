@@ -158,9 +158,17 @@
         <StackPanel Grid.Column="3">
             <Label Content="Søgning"
                    Margin="0,5,0,0" />
-            <TextBox Margin="5,0,10,0" Text="{Binding SearchBox, UpdateSourceTrigger=PropertyChanged}"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBox Width="153" Margin="5,0,5,0" Text="{Binding SearchBox, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button x:Name="btnSearch"
+                        Content="Søg"
+                        IsDefault="True"
+                        IsEnabled="True"
+                        Command="{Binding SearchMediaFiles}"
+                        Width="Auto"/>
+            </StackPanel>            
         </StackPanel>
- <Button x:Name="btnSearch"
+ <!--<Button x:Name="btnSearch"
                 Grid.Column="4"
                 Content="Søg"
                 IsDefault="True"
@@ -168,7 +176,7 @@
                 Margin="200,0,0,469"
                 IsEnabled="True"
                 Command="{Binding SearchMediaFiles}"
-                Grid.Row="1" />
+                Grid.Row="1" />-->
 
     </Grid>
 </Window>
