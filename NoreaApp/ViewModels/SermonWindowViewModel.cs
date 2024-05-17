@@ -8,10 +8,10 @@ using System.IO;
 using System.Text;
 
 namespace NoreaApp.ViewModels;
-internal class SermonWindowsViewModel : ViewModelBase
+internal class SermonWindowViewModel : ViewModelBase
 {
     private SermonRepository _sermonRepository { get; set; }
-    public ObservableCollection<Sermon> sermons { get; set; }
+    public ObservableCollection<Sermon> Sermons { get; set; }
 
 
     public RelayCommand DeleteCommand => new(execute => DeleteSemon(), canExecute => SelectedItem != null);
@@ -51,38 +51,39 @@ internal class SermonWindowsViewModel : ViewModelBase
 
         if (tempSermons.Count == 0 || string.IsNullOrWhiteSpace(SearchBox))
         {
-            sermons = tempSermons;
-            OnPropertyChanged(nameof(sermons));
+            Sermons = tempSermons;
+            OnPropertyChanged(nameof(Sermons));
             return;
         }
 
         string loweredSearchBox = SearchBox.ToLower();
         List<Sermon> newFiles = tempSermons.Where(file =>
+                ContainsIgnoreCase(file.Title, loweredSearchBox) ||
                 ContainsIgnoreCase(file.Priest, loweredSearchBox) ||
                 ContainsIgnoreCase(file.Church, loweredSearchBox) ||
                 ContainsIgnoreCase(file.Country, loweredSearchBox)
         ).ToList();
 
-        sermons = new ObservableCollection<Sermon>(newFiles);
-        OnPropertyChanged(nameof(sermons));
+        Sermons = new ObservableCollection<Sermon>(newFiles);
+        OnPropertyChanged(nameof(Sermons));
     }
 
 #pragma warning disable CS8604 // Possible null reference argument.
     private void UpdateSermon() => _sermonRepository.Update(SelectedItem);
-    private void DeleteSemon() => sermons.Remove(SelectedItem);
+    private void DeleteSemon() => Sermons.Remove(SelectedItem);
 #pragma warning restore CS8604 // Possible null reference argument.
 
-    public SermonWindowsViewModel()
+    public SermonWindowViewModel()
     {
         _sermonRepository = new SermonRepository();
-        sermons = _sermonRepository.Read();
+        Sermons = _sermonRepository.Read();
     }
 
 
     private void ExportSermons()
     {
         //Save to file/db
-       
+
         string[] headers = ["TITEL", "PRÆST", "ALBUM", "ÅR", "KIRKE", "LAND", "KOMMENTAR", "FILSTI", "NOREA TYPE"];
 
 
@@ -92,7 +93,7 @@ internal class SermonWindowsViewModel : ViewModelBase
             string headerLine = string.Join(";", headers);
             sw.WriteLine(headerLine);
 
-            foreach (Sermon file in sermons)
+            foreach (Sermon file in Sermons)
             {
                 sw.WriteLine(file);
             }

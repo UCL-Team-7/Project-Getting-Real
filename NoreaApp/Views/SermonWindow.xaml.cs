@@ -23,6 +23,6 @@ public partial class SermonWindow : Window
     public SermonWindow()
     {
         InitializeComponent();
-        DataContext = new SermonWindowsViewModel();
+        DataContext = new SermonWindowViewModel();
     }
 }
