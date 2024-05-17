@@ -25,7 +25,7 @@
           Margin="10,0,10,0"
           CanUserAddRows="False"
           CanUserDeleteRows="False"
-          ItemsSource="{Binding sermons}"
+          ItemsSource="{Binding Sermons}"
           SelectedItem="{Binding SelectedItem}"
           CanUserReorderColumns="False"
           AutoGenerateColumns="False"
@@ -54,7 +54,7 @@
             <StackPanel>
                 <Label Content="Titel" />
                 <TextBox Margin="5,0"
-                 Text="{Binding SelectedItem.Titel, UpdateSourceTrigger=PropertyChanged}" />
+                 Text="{Binding SelectedItem.Title, UpdateSourceTrigger=PropertyChanged}" />
                 <Label Content="Præst" />
                 <TextBox Margin="5,0"
                  Text="{Binding SelectedItem.Priest, UpdateSourceTrigger=PropertyChanged}" />
