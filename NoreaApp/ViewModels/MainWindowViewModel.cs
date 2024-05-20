@@ -5,9 +5,7 @@ using NoreaApp.Models.Repositories.Interfaces;
 using NoreaApp.MVVM;
 using Views;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.IO;
-using System.Printing;
 using System.Text;
 
 #pragma warning disable CS8600, CS8604 // Converting null literal or possible null value to non-nullable type.
@@ -22,18 +20,16 @@ internal class MainWindowViewModel : ViewModelBase
     private IRepository _fileRepository = new FileRepository();
     private IMetadataRepository _metadataRepository = new MetadataRepository();
 
-    //public RelayCommand AddCommand => new RelayCommand(_execute => AddMediaFile(), _canExecute => { return true; });
+    // Commandbindings
     public RelayCommand DeleteCommand => new RelayCommand(execute => DeleteMediaFile(), canExecute => SelectedItem != null);
     public RelayCommand ExportCommand => new RelayCommand(execute => Export(), canExecute => CanExport());
     public RelayCommand DisplayCommand => new RelayCommand(execute => Display(), canExecute => { return true; });
     public RelayCommand UpdateCommand => new RelayCommand(execute => UpdateMediaFile(), canExecute => SelectedItem != null);
     public RelayCommand CreateCommand => new RelayCommand(execute => CreateCustomTag(), canExecute => SelectedItem != null);
-
     public RelayCommand SearchMediaFiles => new RelayCommand(execute => SearchFiles(), canExecute => SearchBox != null);
-
     public RelayCommand DeleteCustomTagCommand => new RelayCommand(execute => DeleteCustomTag(), canExecute => SelectedItem != null);
-
     public RelayCommand FilterListCommand => new RelayCommand(execute => FilterList(), canExecute => { return true; });
+
 
     public MainWindowViewModel()
     {
@@ -66,6 +62,9 @@ internal class MainWindowViewModel : ViewModelBase
 
     private static bool ContainsIgnoreCase(string source, string toCheck) => source?.ToLower().Contains(toCheck) ?? false;
 
+    /// <summary>
+    /// Gets the list of MediaFiles and filters them by search results
+    /// </summary>
     private void SearchFiles()
     {
         ObservableCollection<MediaFile> tempMediaFiles = _fileRepository.ReadCache();
@@ -102,6 +101,10 @@ internal class MainWindowViewModel : ViewModelBase
         sW.Show();
     }
 
+
+    /// <summary>
+    /// Creates a custom tag on the SelectedItem in the datagrid
+    /// </summary>
     private void CreateCustomTag()
     {
         MediaFile mediaFile = SelectedItem;
@@ -120,6 +123,10 @@ internal class MainWindowViewModel : ViewModelBase
         _sermonRepository.Create(updateMediaFile);
     }
 
+
+    /// <summary>
+    /// Deletes all customstags on SelectedItem in the datagrid
+    /// </summary>
     private void DeleteCustomTag()
     {
         MediaFile mediaFile = SelectedItem;

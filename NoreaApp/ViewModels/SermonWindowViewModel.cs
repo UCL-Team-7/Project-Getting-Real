@@ -1,9 +1,7 @@
 ﻿using NoreaApp.Models.Audio;
 using NoreaApp.Models.Repositories;
 using NoreaApp.MVVM;
-using Views;
 using System.Collections.ObjectModel;
-using NoreaApp.Models.Repositories.Interfaces;
 using System.IO;
 using System.Text;
 
@@ -43,8 +41,9 @@ internal class SermonWindowViewModel : ViewModelBase
     }
 
 
-    private static bool ContainsIgnoreCase(string source, string toCheck) => source?.ToLower().Contains(toCheck) ?? false;
-
+    /// <summary>
+    /// Gets the list of Sermons and filters them by search results
+    /// </summary>
     private void SearchSermonList()
     {
         ObservableCollection<Sermon> tempSermons = _sermonRepository.Read();
@@ -55,6 +54,8 @@ internal class SermonWindowViewModel : ViewModelBase
             OnPropertyChanged(nameof(Sermons));
             return;
         }
+
+        static bool ContainsIgnoreCase(string source, string toCheck) => source?.ToLower().Contains(toCheck) ?? false;
 
         string loweredSearchBox = SearchBox.ToLower();
         List<Sermon> newFiles = tempSermons.Where(file =>
@@ -79,24 +80,20 @@ internal class SermonWindowViewModel : ViewModelBase
         Sermons = _sermonRepository.Read();
     }
 
-
+    /// <summary>
+    /// Export file-metadata to a CSV-file
+    /// </summary>
     private void ExportSermons()
     {
-        //Save to file/db
-
         string[] headers = ["TITEL", "PRÆST", "ALBUM", "ÅR", "KIRKE", "LAND", "KOMMENTAR", "FILSTI", "NOREA TYPE"];
-
 
         using (StreamWriter sw = new StreamWriter(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sermons.csv"), false, Encoding.UTF8))
         {
-
             string headerLine = string.Join(";", headers);
             sw.WriteLine(headerLine);
 
             foreach (Sermon file in Sermons)
-            {
                 sw.WriteLine(file);
-            }
         }
 
     }

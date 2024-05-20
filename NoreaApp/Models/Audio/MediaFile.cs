@@ -17,7 +17,10 @@ public class MediaFile : IMediaFile
     public string? NoreaType { get; set; }
 
 
-
+    /// <summary>
+    /// Writes MediaFile properties to a string
+    /// </summary>
+    /// <returns></returns>
     public override string ToString() => $"{Title ?? ""};" +
         $"{Artist ?? ""};" +
         $"{Album ?? ""};" +
