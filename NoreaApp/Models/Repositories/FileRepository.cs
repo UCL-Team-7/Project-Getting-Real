@@ -12,6 +12,11 @@ public class FileRepository : IRepository
 {
     private readonly List<MediaFile> _mediaFiles = [];
 
+    /// <summary>
+    /// Reads all MediaFiles' filepath and executes Read method
+    /// </summary>
+    /// <param name="filePaths"></param>
+    /// <returns></returns>
     public ObservableCollection<MediaFile> ReadAll(string[] filePaths)
     {
         if (_mediaFiles.Count > 0)
@@ -23,14 +28,25 @@ public class FileRepository : IRepository
         foreach (string filePath in filePaths)
         {
             // Call the Read method for each file
-            _mediaFiles.Add(Read(filePath));
+            Read(filePath);
         }
 
         return new ObservableCollection<MediaFile>(_mediaFiles);
     }
 
+
+    /// <summary>
+    /// Returns an ObservableCollection from List of MediaFiles
+    /// </summary>
+    /// <returns></returns>
     public ObservableCollection<MediaFile> ReadCache() => new(_mediaFiles);
 
+
+    /// <summary>
+    /// Create instances of MediaFiles
+    /// </summary>
+    /// <param name="filePath"></param>
+    /// <returns></returns>
     public MediaFile Read(string filePath)
     {
         var file = TagLib.File.Create(filePath);
@@ -55,19 +71,21 @@ public class FileRepository : IRepository
             Composer = file.Tag.FirstComposer,
             NoreaType = noreaType
         };
+            _mediaFiles.Add(mediaFile);
 
         return mediaFile;
     }
 
-    // update existing tags metadata
+    /// <summary>
+    /// Updates and saves MediaFile properties
+    /// </summary>
+    /// <param name="mediaFile"></param>
     public void Update(MediaFile mediaFile)
     {
         var file = TagLib.File.Create(mediaFile.Directory);
 
         if (file == null)
-        {
             return;
-        }
 
         file.Tag.Title = mediaFile.Title;
         file.Tag.Album = mediaFile.Album;
@@ -77,24 +95,16 @@ public class FileRepository : IRepository
 
 
         if (mediaFile.Genre != null)
-        {
             file.Tag.Genres = [mediaFile.Genre];
-        }
 
         if (mediaFile.Composer != null)
-        {
             file.Tag.Composers = [mediaFile.Composer];
-        }
 
         if (mediaFile.Artist != null)
-        {
             file.Tag.Performers = [mediaFile.Artist];
-        }
 
         if (mediaFile.AlbumArtist != null)
-        {
             file.Tag.AlbumArtists = [mediaFile.AlbumArtist];
-        }
 
         file.Save();
     }

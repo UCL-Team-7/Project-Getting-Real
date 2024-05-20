@@ -12,6 +12,10 @@ internal class SermonRepository : ISermonRepository
 {
     private static readonly List<Sermon> s_sermons = [];
 
+    /// <summary>
+    /// Create instances of Sermons and adds it to the List of Sermons
+    /// </summary>
+    /// <param name="mediaFile"></param>
     public void Create(MediaFile mediaFile) {
         var file = TagLib.File.Create(mediaFile.Directory);
 
@@ -33,9 +37,20 @@ internal class SermonRepository : ISermonRepository
             s_sermons.Add(sermon);
         }
     }
+
     public void Delete(Sermon sermon) => s_sermons.Remove(sermon);
+
+    /// <summary>
+    /// Returns an ObservableCollection from List of Sermons
+    /// </summary>
+    /// <returns></returns>
     public ObservableCollection<Sermon> Read() => new ObservableCollection<Sermon>(s_sermons);
 
+
+    /// <summary>
+    /// Updates and saves Sermon properties
+    /// </summary>
+    /// <param name="sermon"></param>
     public void Update(Sermon sermon) {
         var file = TagLib.File.Create(sermon.Directory);
 

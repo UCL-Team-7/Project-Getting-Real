@@ -15,7 +15,6 @@ public class Priest
 
 
     // ViewModels skal håndtere filtrering af Sermons på priests, filtreringen sker efter Name, Church, Year
-
     public Priest() { }
 
 

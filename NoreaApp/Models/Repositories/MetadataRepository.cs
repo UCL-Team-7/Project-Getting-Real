@@ -7,12 +7,14 @@ namespace NoreaApp.Models.Repositories;
 internal class MetadataRepository : IMetadataRepository
 {
 
-    // create custom tag
+    /// <summary>
+    /// Creates custom tag
+    /// </summary>
+    /// <param name="mediaFile"></param>
     public void Create(MediaFile mediaFile)
     {
         // Load the audio file
         var file = TagLib.File.Create(mediaFile.Directory);
-
 
         if (file != null)
         {
@@ -31,7 +33,10 @@ internal class MetadataRepository : IMetadataRepository
         }
     }
 
-    // delete custom tag (field)
+    /// <summary>
+    /// Deletes all custom tags
+    /// </summary>
+    /// <param name="mediaFile"></param>
     public void DeleteCustomTag(MediaFile mediaFile)
     {
         using (var file = TagLib.File.Create(mediaFile.Directory))
