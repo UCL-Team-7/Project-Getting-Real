@@ -144,21 +144,6 @@ internal class MainWindowViewModel : ViewModelBase
     }
 
 
-
-
-    private void AddMediaFile()
-    {
-        throw new NotImplementedException();
-
-        //MediaFiles.Add(new MediaFile
-        //{
-        //    Title = "Not set yet",
-        //    Artist = "Not set yet",
-        //    Comment = "Not set yet",
-        //});
-
-    }
-
     public void Display()
     {
         OpenFileDialog dialog = new OpenFileDialog();
