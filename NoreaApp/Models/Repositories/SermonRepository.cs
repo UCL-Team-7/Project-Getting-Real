@@ -67,4 +67,9 @@ internal class SermonRepository : ISermonRepository
             file.Save();
         }
     }
+
+    /// <summary>
+    /// Clears the sermons list
+    /// </summary>
+    public void Clear() => s_sermons.Clear();
 }
