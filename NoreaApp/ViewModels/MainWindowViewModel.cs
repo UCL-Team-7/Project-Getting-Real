@@ -156,6 +156,7 @@ internal class MainWindowViewModel : ViewModelBase
         {
             MediaFiles.Clear();
             MediaFiles = _fileRepository.ReadAll(dialog.FileNames);
+            _sermonRepository.Clear();
 
             foreach (MediaFile file in MediaFiles)
             {
